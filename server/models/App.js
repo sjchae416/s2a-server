@@ -5,6 +5,12 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	tables: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Table',
+		},
+	],
 	views: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
