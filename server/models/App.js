@@ -5,7 +5,7 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	Views: [
+	views: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'View',

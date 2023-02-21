@@ -22,6 +22,7 @@ const tableSchema = new Schema({
 	},
 	// a list of columns in the sheet and, for each column: name, initial value, label, reference, type
 	cols: {
+		// REVIEW choose type or have nested fields
 		type: Array,
 		required: true,
 	},
