@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema();
 const userSchema = new Schema({
-	name: {
-		type: String,
-	},
 	email: {
 		type: String,
 		required: true,
 	},
-	accessedView: [
+	apps: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'App',
+		},
+	],
+	views: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'View',
