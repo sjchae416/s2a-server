@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
+const tableRouter = require('./routes/tables');
 
 dotenv.config();
 app.use(express.json());
@@ -26,6 +27,7 @@ db.on('error', (err) => console.error('connection error:', err));
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/apps', appRouter);
+app.unsubscribe('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('*', (req, res) => {
 	res.status(404).json({ message: '404 Page Not Found' });

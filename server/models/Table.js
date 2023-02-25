@@ -48,6 +48,11 @@ const tableSchema = new Schema({
 			},
 		},
 	],
+	app: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'App',
+		required: true,
+	},
 });
 
 module.exports = mongoose.model('Table', tableSchema);

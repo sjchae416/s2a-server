@@ -5,10 +5,6 @@ const viewSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	app: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'App',
-	},
 	// the table containing data for this view. A view can display data from only one table
 	table: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -49,6 +45,11 @@ const viewSchema = new Schema({
 	// the subset of columns in the view that is editable in the view
 	editableCols: {
 		type: [String],
+	},
+	app: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'App',
+		required: true,
 	},
 });
 

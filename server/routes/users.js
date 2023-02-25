@@ -58,6 +58,7 @@ router.get('/:id', async (req, res) => {
 // ROUTE crUd = update a User
 router.put('/:id', async (req, res) => {
 	const id = req.params.id;
+	// NOTE usually updates views field
 	const update = req.body;
 
 	try {
@@ -80,6 +81,8 @@ router.put('/:id', async (req, res) => {
 // ROUTE cruD - delete a User
 router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
+	// REVIEW
+	// const id = req.body.id
 
 	try {
 		// const deletedUser = await User.findByIdAndDelete(id);
