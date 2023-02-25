@@ -2,33 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// ROUTE cRud - get all Users
-router.get('/', async (req, res) => {
-	try {
-		const users = await User.find({});
-		console.log('All models found successfully: ', users);
-
-		res.send(users);
-	} catch (error) {
-		console.error('Error while creating new model: ', error);
-	}
-});
-
-// ROUTE cRud - get a User
-// REVIEW get user by _id or email?
-router.get('/:id', async (req, res) => {
-	const id = req.params.id;
-
-	try {
-		const user = await User.findById(id);
-		console.log('Model found: ', user);
-
-		res.send(user);
-	} catch (error) {
-		console.error('Error while finding model: ', error);
-	}
-});
-
 // ROUTE Crud - create a User
 router.post('/:email', async (req, res) => {
 	const email = req.params.email;
@@ -41,11 +14,66 @@ router.post('/:email', async (req, res) => {
 		// await newUser.save();
 
 		const newUser = await User.create({ email: email });
-		console.log('New model created successfully: ', newUser);
+		console.log('New user created successfully: ', newUser);
 
-		res.send(newUser);
+		res.status(201).json(newUser);
 	} catch (error) {
-		console.error('Error while creating new model: ', error);
+		console.error('Error while creating new user: ', error);
+
+		res.status(500).json({ message: `Failed to create new User ${email}` });
+	}
+});
+
+// ROUTE cRud - get all Users
+router.get('/', async (req, res) => {
+	try {
+		const users = await User.find({});
+		console.log('All users found successfully: ', users);
+
+		res.status(200).json(users);
+	} catch (error) {
+		console.error('Error while creating new user: ', error);
+
+		res.status(404).json({ message: 'Users not found' });
+	}
+});
+
+// ROUTE cRud - get a User
+// REVIEW get user by _id or email?
+router.get('/:id', async (req, res) => {
+	const id = req.params.id;
+
+	try {
+		const user = await User.findById(id);
+		console.log('User found: ', user);
+
+		res.status(200).json(user);
+	} catch (error) {
+		console.error('Error while finding user: ', error);
+
+		res.status(404).json({ message: `User ${id} not found` });
+	}
+});
+
+// ROUTE crUd = update a User
+router.put('/:id', async (req, res) => {
+	const id = req.params.id;
+	const update = req.body;
+
+	try {
+		// const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
+		// console.log('User updated successfully:', updatedUser);
+
+		// res.status(200).json(updatedUser);
+
+		await User.findByIdAndUpdate(id, update);
+		console.log(`User ${id} updated successfully`);
+
+		res.status(204).send();
+	} catch (error) {
+		console.error('Error while updating user: ', error);
+
+		res.status(500).json({ message: `Failed to update User ${id}` });
 	}
 });
 
@@ -54,14 +82,19 @@ router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		await User.findByIdAndDelete({ id });
+		// const deletedUser = await User.findByIdAndDelete(id);
+		// console.log('User deleted successfully', deletedUser);
 
-		console.log(
-			'Model deleted successfully: '
-			// , deletedUser
-		);
+		// res.status(200).json(deletedUser);
+
+		await User.findByIdAndDelete(id);
+		console.log(`User ${id} deleted successfully`);
+
+		res.status(204).send();
 	} catch (error) {
-		console.error('Error while deleting model: ', error);
+		console.error('Error while deleting user: ', error);
+
+		res.status(500).json({ message: `Failed to delete User ${id}` });
 	}
 });
 

@@ -28,7 +28,7 @@ app.use('/users', userRouter);
 app.use('/apps', appRouter);
 app.use('/views', viewRouter);
 app.use('*', (req, res) => {
-	res.status(404).json({ error: '404 Page Not Found' });
+	res.status(404).json({ message: '404 Page Not Found' });
 });
 
 app.listen(process.env.PORT || 3666, () => {
