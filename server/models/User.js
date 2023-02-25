@@ -1,16 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 const userSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
 	},
-	apps: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'App',
-		},
-	],
 	views: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
