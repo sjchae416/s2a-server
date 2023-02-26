@@ -7,7 +7,7 @@ router.post('/:id', async (req, res) => {
 	const appId = req.params.id;
 
 	try {
-		const newTable = await Table.create({ app: appId });
+		const newTable = await Table.create({ app: appId }).exec();
 		console.log('New table created successfully: ', newTable);
 
 		res.status(201).json(newTable);
@@ -18,10 +18,10 @@ router.post('/:id', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - get all Tables
+// ROUTE cRud - read all Tables
 router.get('/', async (req, res) => {
 	try {
-		const tables = await Table.find({});
+		const tables = await Table.find({}).exec();
 		console.log('All tables found successfully: ', tables);
 
 		res.status(200).json(tables);
@@ -32,12 +32,12 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - get a Table
+// ROUTE cRud - read a Table
 router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const table = await Table.findById(id);
+		const table = await Table.findById(id).exec();
 		console.log('Table found: ', table);
 
 		res.status(200).json(table);
@@ -54,12 +54,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedTable = await Table.findByIdAndUpdate(id, update, { new: true });
+		// const updatedTable = await Table.findByIdAndUpdate(id, update, { new: true }).exec();
 		// console.log('Table updated successfully:', updatedTable);
 
 		// res.status(200).json(updatedTable);
 
-		await Table.findByIdAndUpdate(id, update);
+		await Table.findByIdAndUpdate(id, update).exec();
 		console.log(`Table ${id} updated successfully`);
 
 		res.status(204).send();
@@ -80,7 +80,7 @@ router.post('/:id', async (req, res) => {
 
 		// res.status(200).json(deletedTable);
 
-		await Table.findByIdAndDelete(id);
+		await Table.findByIdAndDelete(id).exec();
 		console.log(`Table ${id} deleted successfully`);
 
 		res.status(204).send();

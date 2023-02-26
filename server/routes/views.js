@@ -3,8 +3,9 @@ const router = express.Router();
 const View = require('../models/View');
 
 // ROUTE Crud - create a View
-router.post('/:id', async (req, res) => {
-	const appId = req.params.id;
+router.post('/:appId', async (req, res) => {
+	const appId = req.params.appId;
+	// FIXME add Table! and other required: true!
 
 	try {
 		const newView = await View.create({ app: appId });
@@ -18,10 +19,10 @@ router.post('/:id', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - get all Views
+// ROUTE cRud - read all Views
 router.get('/', async (req, res) => {
 	try {
-		const views = await View.find({});
+		const views = await View.find({}).exec();
 		console.log('All views found successfully: ', views);
 
 		res.status(200).json(views);
@@ -32,12 +33,26 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - get a View
+// ROUTE cRud - read all app-specific Views
+router.get('/:appId', async (req, res) => {
+	const appId = req.params.appId;
+
+	try {
+		const filterdViews = await View.find({ app: appId }).exec();
+		console.log('All filtered views found successfully: ', filterdViews);
+
+		res.status(200).json(filterdViews);
+	} catch (error) {
+		console.error('Error while finding view: ', error);
+	}
+});
+
+// ROUTE cRud - read a View
 router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const view = await View.findById(id);
+		const view = await View.findById(id).exec();
 		console.log('View found: ', view);
 
 		res.status(200).json(view);
@@ -55,12 +70,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedView = await View.findByIdAndUpdate(id, update, { new: true });
+		// const updatedView = await View.findByIdAndUpdate(id, update, { new: true }).exec();
 		// console.log('View updated successfully:', updatedView);
 
 		// res.status(200).json(updatedView);
 
-		await View.findByIdAndUpdate(id, update);
+		await View.findByIdAndUpdate(id, update).exec();
 		console.log(`View ${id} updated successfully`);
 
 		res.status(204).send();
@@ -76,12 +91,12 @@ router.post('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedView = await View.findByIdAndDelete(id);
+		// const deletedView = await View.findByIdAndDelete(id).exec();
 		// console.log('View deleted successfully', deletedView);
 
 		// res.status(200).json(deletedView);
 
-		await View.findByIdAndDelete(id);
+		await View.findByIdAndDelete(id).exec();
 		console.log(`View ${id} deleted successfully`);
 
 		res.status(204).send();
