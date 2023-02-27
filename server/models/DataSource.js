@@ -30,7 +30,6 @@ const tableSchema = new Schema({
 			// the initial value of this column when a record is added to the table. It can be any valid Google Sheets formula. As a special case, it can also be =ADDED_BY(); when a record is added, the email address of the user that added the record is stored in the sheet.
 			initialValue: {
 				type: String,
-				required: true,
 			},
 			// Boolean indicating whether values in this column should be used as the link text for references to records in this table. This attribute should be set to true for at most one column per table.
 			label: {
@@ -39,8 +38,8 @@ const tableSchema = new Schema({
 			},
 			// whether the column is a reference to another table, and if so, which table
 			reference: {
-				// REVIEW type????
-				type: String,
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'DataSource',
 			},
 			// the type of values in the column
 			type: {
@@ -49,11 +48,6 @@ const tableSchema = new Schema({
 			},
 		},
 	],
-	app: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'App',
-		required: true,
-	},
 });
 
-module.exports = mongoose.model('Table', tableSchema);
+module.exports = mongoose.model('DataSource', tableSchema);

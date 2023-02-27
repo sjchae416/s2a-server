@@ -5,7 +5,7 @@ const View = require('../models/View');
 // ROUTE Crud - create a View
 router.post('/:appId', async (req, res) => {
 	const appId = req.params.appId;
-	// FIXME add Table! and other required: true!
+	// FIXME add DataSource! and other required: true!
 
 	try {
 		const newView = await View.create({ app: appId });

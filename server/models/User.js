@@ -4,13 +4,8 @@ const userSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
+		unique: true,
 	},
-	views: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'View',
-		},
-	],
 });
 
 module.exports = mongoose.model('User', userSchema);

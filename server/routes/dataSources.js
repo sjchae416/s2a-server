@@ -1,27 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const Table = require('../models/Table');
+const DataSource = require('../models/DataSource');
 
-// ROUTE Crud - create a Table
+// ROUTE Crud - create a DataSource
 router.post('/:id', async (req, res) => {
 	const appId = req.params.id;
 
 	try {
-		const newTable = await Table.create({ app: appId }).exec();
+		const newTable = await DataSource.create({ app: appId }).exec();
 		console.log('New table created successfully: ', newTable);
 
 		res.status(201).json(newTable);
 	} catch (error) {
 		console.error('Error while creating new table: ', error);
 
-		res.status(500).json({ message: `Failed to create new Table ${appId}` });
+		res
+			.status(500)
+			.json({ message: `Failed to create new DataSource ${appId}` });
 	}
 });
 
 // ROUTE cRud - read all Tables
 router.get('/', async (req, res) => {
 	try {
-		const tables = await Table.find({}).exec();
+		const tables = await DataSource.find({}).exec();
 		console.log('All tables found successfully: ', tables);
 
 		res.status(200).json(tables);
@@ -32,62 +34,62 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - read a Table
+// ROUTE cRud - read a DataSource
 router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const table = await Table.findById(id).exec();
-		console.log('Table found: ', table);
+		const table = await DataSource.findById(id).exec();
+		console.log('DataSource found: ', table);
 
 		res.status(200).json(table);
 	} catch (error) {
 		console.error('Error while finding table: ', error);
 
-		res.status(404).json({ message: `Table ${id} not found` });
+		res.status(404).json({ message: `DataSource ${id} not found` });
 	}
 });
 
-// ROUTE crUd = update a Table
+// ROUTE crUd = update a DataSource
 router.put('/:id', async (req, res) => {
 	const id = req.params.id;
 	const update = req.body;
 
 	try {
-		// const updatedTable = await Table.findByIdAndUpdate(id, update, { new: true }).exec();
-		// console.log('Table updated successfully:', updatedTable);
+		// const updatedTable = await DataSource.findByIdAndUpdate(id, update, { new: true }).exec();
+		// console.log('DataSource updated successfully:', updatedTable);
 
 		// res.status(200).json(updatedTable);
 
-		await Table.findByIdAndUpdate(id, update).exec();
-		console.log(`Table ${id} updated successfully`);
+		await DataSource.findByIdAndUpdate(id, update).exec();
+		console.log(`DataSource ${id} updated successfully`);
 
 		res.status(204).send();
 	} catch (error) {
 		console.error('Error while updating table: ', error);
 
-		res.status(500).json({ message: `Failed to update Table ${id}` });
+		res.status(500).json({ message: `Failed to update DataSource ${id}` });
 	}
 });
 
-// ROUTE cruD - delete a Table
+// ROUTE cruD - delete a DataSource
 router.post('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedTable = await Table.findByIdAndDelete(id);
-		// console.log('Table deleted successfully', deletedTable);
+		// const deletedTable = await DataSource.findByIdAndDelete(id);
+		// console.log('DataSource deleted successfully', deletedTable);
 
 		// res.status(200).json(deletedTable);
 
-		await Table.findByIdAndDelete(id).exec();
-		console.log(`Table ${id} deleted successfully`);
+		await DataSource.findByIdAndDelete(id).exec();
+		console.log(`DataSource ${id} deleted successfully`);
 
 		res.status(204).send();
 	} catch (error) {
 		console.error('Error while deleting table: ', error);
 
-		res.status(500).json({ message: `Failed to delete Table ${id}` });
+		res.status(500).json({ message: `Failed to delete DataSource ${id}` });
 	}
 });
 
