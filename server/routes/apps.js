@@ -7,8 +7,8 @@ router.post('/', async (req, res) => {
 	const {name, creator, dataSources, views, roleMembershipSheet} = req.body;
 
 	try {
-		const newApp = new App({ name: name, creator: creator, dataSources: dataSources, views: views, roleMembershipSheet: roleMembershipSheet })
-		await newApp.save();
+
+		const newApp = await App.create({ name: name, creator: creator, dataSources: dataSources, views: views, roleMembershipSheet: roleMembershipSheet });
 		console.log('New app created successfully: ', newApp);
 
 		res.status(201).json(newApp);
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 // ROUTE cRud - read all Apps
 router.get('/', async (req, res) => {
 	try {
-		const apps = await App.find({}).exec();
+		const apps = await App.find({});
 		console.log('All apps found successfully: ', apps);
 
 		res.status(200).json(apps);
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const app = await App.findById(id).exec();
+		const app = await App.findById(id);
 		console.log('App found: ', app);
 
 		res.status(200).json(app);
@@ -56,12 +56,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedApp = await App.findByIdAndUpdate(id, update, { new: true }).exec();
+		// const updatedApp = await App.findByIdAndUpdate(id, update, { new: true });
 		// console.log('App updated successfully:', updatedApp);
 
 		// res.status(200).json(updatedApp);
 
-		const app = await App.findByIdAndUpdate(id, update).exec();
+		const app = await App.findByIdAndUpdate(id, update);
 		console.log(`App ${id} updated successfully: ${app}`);
 
 		res.status(200).json(app);
@@ -77,12 +77,12 @@ router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedApp = await App.findByIdAndDelete(id).exec();
+		// const deletedApp = await App.findByIdAndDelete(id);
 		// console.log('App deleted successfully', deletedApp);
 
 		// res.status(200).json(deletedApp);
 
-		await App.findByIdAndDelete(id).exec();
+		await App.findByIdAndDelete(id);
 		console.log(`App ${id} deleted successfully`);
 
 		res.status(204).send();
