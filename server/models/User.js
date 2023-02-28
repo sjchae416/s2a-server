@@ -6,6 +6,14 @@ const userSchema = new Schema({
 		required: true,
 		unique: true,
 	},
+	apps: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'App',
+	},
+	views: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'View',
+	},
 });
 
 module.exports = mongoose.model('User', userSchema);

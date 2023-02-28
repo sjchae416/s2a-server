@@ -7,7 +7,7 @@ router.post('/:name', async (req, res) => {
 	const name = req.params.name;
 
 	try {
-		const newApp = await App.create({ name: name }).exec();
+		const newApp = await App.create({ name: name });
 		console.log('New app created successfully: ', newApp);
 
 		res.status(201).json(newApp);
@@ -21,7 +21,7 @@ router.post('/:name', async (req, res) => {
 // ROUTE cRud - read all Apps
 router.get('/', async (req, res) => {
 	try {
-		const apps = await App.find({}).exec();
+		const apps = await App.find({});
 		console.log('All apps found successfully: ', apps);
 
 		res.status(200).json(apps);
@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const app = await App.findById(id).exec();
+		const app = await App.findById(id);
 		console.log('App found: ', app);
 
 		res.status(200).json(app);
@@ -55,12 +55,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedApp = await App.findByIdAndUpdate(id, update, { new: true }).exec();
+		// const updatedApp = await App.findByIdAndUpdate(id, update, { new: true });
 		// console.log('App updated successfully:', updatedApp);
 
 		// res.status(200).json(updatedApp);
 
-		await App.findByIdAndUpdate(id, update).exec();
+		await App.findByIdAndUpdate(id, update);
 		console.log(`App ${id} updated successfully`);
 
 		res.status(204).send();
@@ -76,12 +76,12 @@ router.post('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedApp = await App.findByIdAndDelete(id).exec();
+		// const deletedApp = await App.findByIdAndDelete(id);
 		// console.log('App deleted successfully', deletedApp);
 
 		// res.status(200).json(deletedApp);
 
-		await App.findByIdAndDelete(id).exec();
+		await App.findByIdAndDelete(id);
 		console.log(`App ${id} deleted successfully`);
 
 		res.status(204).send();

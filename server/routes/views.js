@@ -22,7 +22,7 @@ router.post('/:appId', async (req, res) => {
 // ROUTE cRud - read all Views
 router.get('/', async (req, res) => {
 	try {
-		const views = await View.find({}).exec();
+		const views = await View.find({});
 		console.log('All views found successfully: ', views);
 
 		res.status(200).json(views);
@@ -38,7 +38,7 @@ router.get('/:appId', async (req, res) => {
 	const appId = req.params.appId;
 
 	try {
-		const filterdViews = await View.find({ app: appId }).exec();
+		const filterdViews = await View.find({ app: appId });
 		console.log('All filtered views found successfully: ', filterdViews);
 
 		res.status(200).json(filterdViews);
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const view = await View.findById(id).exec();
+		const view = await View.findById(id);
 		console.log('View found: ', view);
 
 		res.status(200).json(view);
@@ -70,12 +70,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedView = await View.findByIdAndUpdate(id, update, { new: true }).exec();
+		// const updatedView = await View.findByIdAndUpdate(id, update, { new: true });
 		// console.log('View updated successfully:', updatedView);
 
 		// res.status(200).json(updatedView);
 
-		await View.findByIdAndUpdate(id, update).exec();
+		await View.findByIdAndUpdate(id, update);
 		console.log(`View ${id} updated successfully`);
 
 		res.status(204).send();
@@ -91,12 +91,12 @@ router.post('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedView = await View.findByIdAndDelete(id).exec();
+		// const deletedView = await View.findByIdAndDelete(id);
 		// console.log('View deleted successfully', deletedView);
 
 		// res.status(200).json(deletedView);
 
-		await View.findByIdAndDelete(id).exec();
+		await View.findByIdAndDelete(id);
 		console.log(`View ${id} deleted successfully`);
 
 		res.status(204).send();
