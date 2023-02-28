@@ -12,10 +12,10 @@ const userSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'App',
 	}],
-	views: {
+	views: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'View',
-	},
+	}],
 });
 
 module.exports = mongoose.model('User', userSchema);
