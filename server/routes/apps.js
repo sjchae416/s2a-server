@@ -14,7 +14,8 @@ router.post('/', async (req, res) => {
 		for(let key in newApp.roles){
 			if(validateEmail(newApp.roles[key])){
 				const user = await User.findOne({email: newApp.roles[key]});
-				console.log(user);
+				user.apps.push(newApp._id);
+				await user.save();
 			}
 		}
 		console.log('New app created successfully: ', newApp);
