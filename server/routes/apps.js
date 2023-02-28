@@ -3,11 +3,12 @@ const router = express.Router();
 const App = require('../models/App');
 
 // ROUTE Crud - create an App
-router.post('/:name', async (req, res) => {
-	const name = req.params.name;
+router.post('/', async (req, res) => {
+	const {name, creator, dataSources, views, roleMembershipSheet} = req.body;
 
 	try {
-		const newApp = await App.create({ name: name }).exec();
+		const newApp = new App({ name: name, creator: creator, dataSources: dataSources, views: views, roleMembershipSheet: roleMembershipSheet })
+		await newApp.save();
 		console.log('New app created successfully: ', newApp);
 
 		res.status(201).json(newApp);
@@ -60,10 +61,10 @@ router.put('/:id', async (req, res) => {
 
 		// res.status(200).json(updatedApp);
 
-		await App.findByIdAndUpdate(id, update).exec();
-		console.log(`App ${id} updated successfully`);
+		const app = await App.findByIdAndUpdate(id, update).exec();
+		console.log(`App ${id} updated successfully: ${app}`);
 
-		res.status(204).send();
+		res.status(200).json(app);
 	} catch (error) {
 		console.error('Error while updating app: ', error);
 
@@ -72,7 +73,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // ROUTE cruD - delete an App
-router.post('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
