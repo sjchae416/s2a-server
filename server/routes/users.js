@@ -13,7 +13,7 @@ router.post('/:email', async (req, res) => {
 
 		// await newUser.save();
 
-		const newUser = await User.create({ email: email }).exec();
+		const newUser = await User.create({ email: email });
 		console.log('New user created successfully: ', newUser);
 
 		res.status(201).json(newUser);
@@ -27,7 +27,7 @@ router.post('/:email', async (req, res) => {
 // ROUTE cRud - read all Users
 router.get('/', async (req, res) => {
 	try {
-		const users = await User.find({}).exec();
+		const users = await User.find({});
 		console.log('All users found successfully: ', users);
 
 		res.status(200).json(users);
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const user = await User.findById(id).exec();
+		const user = await User.findById(id);
 		console.log('User found: ', user);
 
 		res.status(200).json(user);
@@ -63,12 +63,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedUser = await User.findByIdAndUpdate(id, update, { new: true }).exec();
+		// const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
 		// console.log('User updated successfully:', updatedUser);
 
 		// res.status(200).json(updatedUser);
 
-		await User.findByIdAndUpdate(id, update).exec();
+		await User.findByIdAndUpdate(id, update);
 		console.log(`User ${id} updated successfully`);
 
 		res.status(204).send();
@@ -86,12 +86,12 @@ router.delete('/:id', async (req, res) => {
 	// const id = req.body.id
 
 	try {
-		// const deletedUser = await User.findByIdAndDelete(id).exec();
+		// const deletedUser = await User.findByIdAndDelete(id);
 		// console.log('User deleted successfully', deletedUser);
 
 		// res.status(200).json(deletedUser);
 
-		await User.findByIdAndDelete(id).exec();
+		await User.findByIdAndDelete(id);
 		console.log(`User ${id} deleted successfully`);
 
 		res.status(204).send();

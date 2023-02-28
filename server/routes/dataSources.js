@@ -7,7 +7,7 @@ router.post('/:id', async (req, res) => {
 	const appId = req.params.id;
 
 	try {
-		const newTable = await DataSource.create({ app: appId }).exec();
+		const newTable = await DataSource.create({ app: appId });
 		console.log('New table created successfully: ', newTable);
 
 		res.status(201).json(newTable);
@@ -23,7 +23,7 @@ router.post('/:id', async (req, res) => {
 // ROUTE cRud - read all Tables
 router.get('/', async (req, res) => {
 	try {
-		const tables = await DataSource.find({}).exec();
+		const tables = await DataSource.find({});
 		console.log('All tables found successfully: ', tables);
 
 		res.status(200).json(tables);
@@ -39,7 +39,7 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const table = await DataSource.findById(id).exec();
+		const table = await DataSource.findById(id);
 		console.log('DataSource found: ', table);
 
 		res.status(200).json(table);
@@ -56,12 +56,12 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedTable = await DataSource.findByIdAndUpdate(id, update, { new: true }).exec();
+		// const updatedTable = await DataSource.findByIdAndUpdate(id, update, { new: true });
 		// console.log('DataSource updated successfully:', updatedTable);
 
 		// res.status(200).json(updatedTable);
 
-		await DataSource.findByIdAndUpdate(id, update).exec();
+		await DataSource.findByIdAndUpdate(id, update);
 		console.log(`DataSource ${id} updated successfully`);
 
 		res.status(204).send();
@@ -82,7 +82,7 @@ router.post('/:id', async (req, res) => {
 
 		// res.status(200).json(deletedTable);
 
-		await DataSource.findByIdAndDelete(id).exec();
+		await DataSource.findByIdAndDelete(id);
 		console.log(`DataSource ${id} deleted successfully`);
 
 		res.status(204).send();
