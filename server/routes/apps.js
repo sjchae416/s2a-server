@@ -1,14 +1,21 @@
+import { validateEmail } from '../global_functions/validateEmail.js';
+
 const express = require('express');
 const router = express.Router();
 const App = require('../models/App');
 
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
-	const {name, creator, dataSources, views, roleMembershipSheet} = req.body;
+	const {name, creator, dataSources, views, roles} = req.body;
 
 	try {
 
-		const newApp = await App.create({ name: name, creator: creator, dataSources: dataSources, views: views, roleMembershipSheet: roleMembershipSheet });
+		const newApp = await App.create({ name: name, creator: creator, dataSources: dataSources, views: views, roles: roles });
+		for(let key in newApp.roles){
+			if(validateEmail(newApp.roles[key])){
+				console.log(newApp.roles[key])
+			}
+		}
 		console.log('New app created successfully: ', newApp);
 
 		res.status(201).json(newApp);

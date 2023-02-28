@@ -26,8 +26,12 @@ const appSchema = new Schema({
 		},
 	],
 	// URL of a spreadsheet containing role membership information
-	roleMembershipSheet: {
-		type: String,
+	// roleMembershipSheet: {
+	// 	type: String,
+	// 	required: true,
+	// },
+	roles: {
+		type: Schema.Types.Mixed,
 		required: true,
 	},
 	published: {
