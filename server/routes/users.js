@@ -3,8 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 
 // ROUTE Crud - create a User
-router.post('/:email', async (req, res) => {
-	const email = req.params.email;
+router.post('/', async (req, res) => {
+
+	const {email} = req.body;
 
 	try {
 		// const newUser = new User({
@@ -13,7 +14,9 @@ router.post('/:email', async (req, res) => {
 
 		// await newUser.save();
 
-		const newUser = await User.create({ email: email }).exec();
+		
+		const newUser = new User({ email: email });
+		await newUser.save();
 		console.log('New user created successfully: ', newUser);
 
 		res.status(201).json(newUser);
@@ -68,10 +71,10 @@ router.put('/:id', async (req, res) => {
 
 		// res.status(200).json(updatedUser);
 
-		await User.findByIdAndUpdate(id, update).exec();
-		console.log(`User ${id} updated successfully`);
+		const user = await User.findByIdAndUpdate(id, update).exec();
+		console.log(`User ${id} updated successfully: ${user}`);
 
-		res.status(204).send();
+		res.status(200).json(user);
 	} catch (error) {
 		console.error('Error while updating user: ', error);
 

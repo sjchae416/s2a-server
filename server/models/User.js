@@ -5,6 +5,8 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
+		//value cannot be updated
+		immutable: true,
 	},
 });
 
