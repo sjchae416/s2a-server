@@ -105,9 +105,12 @@ router.delete('/:id', async (req, res) => {
 		// console.log('App deleted successfully', deletedApp);
 
 		// res.status(200).json(deletedApp);
-
+		
 		await App.findByIdAndDelete(id);
 		console.log(`App ${id} deleted successfully`);
+
+		const update = { $pull: { apps: id } };
+		await User.updateMany({apps : id}, update);
 
 		res.status(204).send();
 	} catch (error) {
