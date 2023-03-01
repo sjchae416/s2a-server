@@ -11,12 +11,27 @@ router.post('/', async (req, res) => {
 	try {
 
 		const newApp = await App.create({ name: name, creator: creator, dataSources: dataSources, views: views, roles: roles });
+		//Iterates through the array of values under each key in the roles object.
 		for(let key in newApp.roles){
-			if(validateEmail(newApp.roles[key])){
-				const user = await User.findOne({email: newApp.roles[key]});
-				user.apps.push(newApp._id);
-				await user.save();
+			for(let i = 0; i < newApp.roles[key].length; i++){
+				let email = newApp.roles[key][i];
+				if(validateEmail(newApp.roles[key])){
+					//If the user exists, update the user's apps array with the new app's id.
+					if(await User.exists({email: email})){
+						const user = await User.findOne({email: email});
+						user.apps.push(newApp._id);
+						await user.save();
+					}
+					//If the user does not exist, create a new user and add the app to their apps array.
+					else{
+						const newUser = await User.create({email: email, apps: [newApp._id]});
+						await newUser.save();
+					}
+					
+				}
+
 			}
+			
 		}
 		console.log('New app created successfully: ', newApp);
 
