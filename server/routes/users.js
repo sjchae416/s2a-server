@@ -7,12 +7,6 @@ router.post('/:email', async (req, res) => {
 	const email = req.params.email;
 
 	try {
-		// const newUser = new User({
-		// 	email: email,
-		// });
-
-		// await newUser.save();
-
 		const newUser = await User.create({ email: email });
 		console.log('New user created successfully: ', newUser);
 
