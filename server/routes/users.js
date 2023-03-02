@@ -3,9 +3,8 @@ const router = express.Router();
 const User = require('../models/User');
 
 // ROUTE Crud - create a User
-router.post('/', async (req, res) => {
-
-	const {email} = req.body;
+router.post('/:email', async (req, res) => {
+	const email = req.params.email;
 
 	try {
 		// const newUser = new User({
@@ -40,7 +39,6 @@ router.get('/', async (req, res) => {
 });
 
 // ROUTE cRud - read a User
-// REVIEW read user by _id or email?
 router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
@@ -64,15 +62,16 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
+		// NOTE uncomment below 3 lines if result needs to be sent and logged
 		// const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
 		// console.log('User updated successfully:', updatedUser);
 
 		// res.status(200).json(updatedUser);
 
-		const user = await User.findByIdAndUpdate(id, update);
-		console.log(`User ${id} updated successfully: ${user}`);
+		await User.findByIdAndUpdate(id, update);
+		console.log(`User ${id} updated successfully`);
 
-		res.status(200).json(user);
+		res.status(204).send();
 	} catch (error) {
 		console.error('Error while updating user: ', error);
 
@@ -83,10 +82,9 @@ router.put('/:id', async (req, res) => {
 // ROUTE cruD - delete a User
 router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
-	// REVIEW
-	// const id = req.body.id
 
 	try {
+		// NOTE uncomment below 3 lines if result needs to be sent and logged
 		// const deletedUser = await User.findByIdAndDelete(id);
 		// console.log('User deleted successfully', deletedUser);
 
