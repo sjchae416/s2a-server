@@ -5,17 +5,20 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
-		//value cannot be updated
 		immutable: true,
 	},
-	apps: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'App',
-	}],
-	views: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'View',
-	}],
+	apps: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'App',
+		},
+	],
+	views: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'View',
+		},
+	],
 });
 
 module.exports = mongoose.model('User', userSchema);

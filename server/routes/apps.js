@@ -6,14 +6,19 @@ const validateEmail = require('../global_functions/validateEmail');
 
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
-	const {name, creator, dataSources, views, roles} = req.body;
+	const { name, creator, dataSources, views, roles } = req.body;
 
 	try {
-
-		const newApp = await App.create({ name: name, creator: creator, dataSources: dataSources, views: views, roles: roles });
-		for(let key in newApp.roles){
-			if(validateEmail(newApp.roles[key])){
-				const user = await User.findOne({email: newApp.roles[key]});
+		const newApp = await App.create({
+			name: name,
+			creator: creator,
+			dataSources: dataSources,
+			views: views,
+			roles: roles,
+		});
+		for (let key in newApp.roles) {
+			if (validateEmail(newApp.roles[key])) {
+				const user = await User.findOne({ email: newApp.roles[key] });
 				user.apps.push(newApp._id);
 				await user.save();
 			}
@@ -70,10 +75,10 @@ router.put('/:id', async (req, res) => {
 
 		// res.status(200).json(updatedApp);
 
-		const app = await App.findByIdAndUpdate(id, update);
-		console.log(`App ${id} updated successfully: ${app}`);
+		await App.findByIdAndUpdate(id, update);
+		console.log(`App ${id} updated successfully`);
 
-		res.status(200).json(app);
+		res.status(204).send();
 	} catch (error) {
 		console.error('Error while updating app: ', error);
 

@@ -6,12 +6,12 @@ const appSchema = new Schema({
 		required: true,
 		unique: true,
 	},
-	// the user who creatd the app
+	// the user who created the app
 	creator: {
 		type: String,
 		required: true,
 	},
-	//  a set of data sources (tables)
+	// a set of data sources (tables)
 	dataSources: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
@@ -25,15 +25,18 @@ const appSchema = new Schema({
 			ref: 'View',
 		},
 	],
+	// REVIEW necessary in App?
 	// URL of a spreadsheet containing role membership information
 	// roleMembershipSheet: {
 	// 	type: String,
 	// 	required: true,
 	// },
+	// role names and emails for each role
 	roles: {
 		type: Schema.Types.Mixed,
 		required: true,
 	},
+	// a Boolean indicating whether the app is visible to its end users
 	published: {
 		type: Boolean,
 		default: false,
