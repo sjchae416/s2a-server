@@ -27,11 +27,8 @@ router.post('/', async (req, res) => {
 						const newUser = await User.create({email: email, apps: [newApp._id]});
 						await newUser.save();
 					}
-					
 				}
-
 			}
-			
 		}
 		console.log('New app created successfully: ', newApp);
 
@@ -109,6 +106,7 @@ router.delete('/:id', async (req, res) => {
 		await App.findByIdAndDelete(id);
 		console.log(`App ${id} deleted successfully`);
 
+		//Remove the app id from the apps array of all users who have access to it.
 		const update = { $pull: { apps: id } };
 		await User.updateMany({apps : id}, update);
 
