@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const App = require('../models/App');
 const User = require('../models/User');
-const validateEmail = require('../global_functions/validateEmail');
+const validateEmail = require('../utils/validateEmail');
 
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
