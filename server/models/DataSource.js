@@ -21,7 +21,7 @@ const tableSchema = new Schema({
 		required: true,
 	},
 	// a list of columns in the sheet and, for each column: name, initial value, label, reference, type
-	cols: [
+	columns: [
 		{
 			name: {
 				type: String,
@@ -38,7 +38,8 @@ const tableSchema = new Schema({
 			},
 			// whether the column is a reference to another table, and if so, which table
 			reference: {
-				type: mongoose.Schema.Types.ObjectId,
+				type: Schema.Types.Mixed,
+				// type: Schema.Types.ObjectId,
 				ref: 'DataSource',
 			},
 			// the type of values in the column

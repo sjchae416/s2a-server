@@ -7,7 +7,7 @@ const viewSchema = new Schema({
 	},
 	// the table containing data for this view. A view can display data from only one table
 	table: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'DataSource',
 		required: true,
 	},
@@ -47,7 +47,7 @@ const viewSchema = new Schema({
 		type: [String],
 	},
 	app: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'App',
 		required: true,
 	},

@@ -14,14 +14,14 @@ const appSchema = new Schema({
 	// a set of data sources (tables)
 	dataSources: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: 'DataSource',
 		},
 	],
 	// a set of views
 	views: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: 'View',
 		},
 	],

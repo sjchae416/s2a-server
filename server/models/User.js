@@ -9,13 +9,13 @@ const userSchema = new Schema({
 	},
 	apps: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: 'App',
 		},
 	],
 	views: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: 'View',
 		},
 	],
