@@ -27,10 +27,10 @@ const appSchema = new Schema({
 	],
 	// REVIEW necessary in App?
 	// URL of a spreadsheet containing role membership information
-	// roleMembershipSheet: {
-	// 	type: String,
-	// 	required: true,
-	// },
+	roleMembershipSheet: {
+		type: String,
+		required: true,
+	},
 	// role names and emails for each role
 	roles: {
 		type: Schema.Types.Mixed,
