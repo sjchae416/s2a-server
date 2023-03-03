@@ -32,14 +32,14 @@ const appSchema = new Schema({
 		required: true,
 	},
 	// role names and emails for each role
-	roles: {
-		type: Schema.Types.Mixed,
-		required: true,
-	},
 	// a Boolean indicating whether the app is visible to its end users
 	published: {
 		type: Boolean,
 		default: false,
+	},
+	roles: {
+		type: Schema.Types.Mixed,
+		required: true,
 	},
 });
 
