@@ -38,8 +38,8 @@ const tableSchema = new Schema({
 			},
 			// whether the column is a reference to another table, and if so, which table
 			reference: {
+				// will store either Boolean(false) OR Schema.Types.ObjectId
 				type: Schema.Types.Mixed,
-				// type: Schema.Types.ObjectId,
 				ref: 'DataSource',
 			},
 			// the type of values in the column
