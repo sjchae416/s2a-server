@@ -8,7 +8,7 @@ const viewSchema = new Schema({
 	// the table containing data for this view. A view can display data from only one table
 	table: {
 		type: Schema.Types.ObjectId,
-		ref: 'DataSource',
+		ref: 'Table',
 		required: true,
 	},
 	// set of columns of the table whose values are displayed in this view

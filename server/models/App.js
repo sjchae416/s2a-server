@@ -11,11 +11,11 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	// a set of data sources (tables)
-	dataSources: [
+	// a set of tables
+	tables: [
 		{
 			type: Schema.Types.ObjectId,
-			ref: 'DataSource',
+			ref: 'Table',
 		},
 	],
 	// a set of views
@@ -25,7 +25,6 @@ const appSchema = new Schema({
 			ref: 'View',
 		},
 	],
-	// REVIEW necessary in App?
 	// URL of a spreadsheet containing role membership information
 	roleMembershipSheet: {
 		type: String,

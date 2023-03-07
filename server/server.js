@@ -8,7 +8,7 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
-const tableRouter = require('./routes/dataSources');
+const tableRouter = require('./routes/tables');
 
 dotenv.config();
 app.use(express.json());

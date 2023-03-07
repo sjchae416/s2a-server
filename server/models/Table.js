@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const dataSourceSchema = new Schema({
+const tableSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
@@ -51,4 +51,4 @@ const dataSourceSchema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('DataSource', dataSourceSchema);
+module.exports = mongoose.model('DataSource', tableSchema);
