@@ -40,7 +40,7 @@ const tableSchema = new Schema({
 			reference: {
 				// will store either Boolean(false) OR Schema.Types.ObjectId
 				type: Schema.Types.Mixed,
-				ref: 'DataSource',
+				ref: 'Table',
 			},
 			// the type of values in the column
 			type: {
@@ -51,4 +51,4 @@ const tableSchema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('DataSource', tableSchema);
+module.exports = mongoose.model('Table', tableSchema);
