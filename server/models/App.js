@@ -12,7 +12,7 @@ const appSchema = new Schema({
 		required: true,
 	},
 	// a set of tables
-	tables: [
+	dataSources: [
 		{
 			type: Schema.Types.ObjectId,
 			ref: 'Table',
@@ -30,12 +30,12 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	// role names and emails for each role
 	// a Boolean indicating whether the app is visible to its end users
 	published: {
 		type: Boolean,
 		default: false,
 	},
+	// role names and emails for each role
 	roles: {
 		type: Schema.Types.Mixed,
 		required: true,
