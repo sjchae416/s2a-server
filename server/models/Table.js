@@ -21,7 +21,7 @@ const tableSchema = new Schema({
 		required: true,
 	},
 	// a list of columns in the sheet and, for each column: name, initial value, label, reference, type
-	cols: [
+	columns: [
 		{
 			name: {
 				type: String,
@@ -38,8 +38,9 @@ const tableSchema = new Schema({
 			},
 			// whether the column is a reference to another table, and if so, which table
 			reference: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'DataSource',
+				// will store either Boolean(false) OR Schema.Types.ObjectId
+				type: Schema.Types.Mixed,
+				ref: 'Table',
 			},
 			// the type of values in the column
 			type: {
@@ -50,4 +51,4 @@ const tableSchema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('DataSource', tableSchema);
+module.exports = mongoose.model('Table', tableSchema);
