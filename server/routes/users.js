@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const validateEmail = require('../utils/validateEmail');
 
 // ROUTE Crud - create a User
 router.post('/:email', async (req, res) => {
 	const email = req.params.email;
 
 	try {
-		const newUser = await User.create({ email: email });
-		console.log('New user created successfully: ', newUser);
-
-		res.status(201).json(newUser);
+		if(validateEmail(email)){
+			const newUser = await User.create({ email: email });
+			console.log('New user created successfully: ', newUser);
+			res.status(201).json(newUser);
+		}else {
+			console.log("Invalid email address");
+			res.status(400).json({ message: `Invalid email address ${email}` });
+		}
+		
 	} catch (error) {
 		console.error('Error while creating new user: ', error);
 

@@ -7,13 +7,14 @@ const validateEmail = require('../utils/validateEmail');
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
 	// REVIEW deleted dataSources and views becuase the client will not be able to pass at this point
-	const { name, creator, roles } = req.body;
+	const { name, creator, roles, roleMembershipSheet } = req.body;
 
 	try {
 		const newApp = await App.create({
 			name: name,
 			creator: creator,
 			roles: roles,
+			roleMembershipSheet: roleMembershipSheet,
 		});
 
 		//Iterates through the array of values under each key in the roles object.
@@ -21,7 +22,7 @@ router.post('/', async (req, res) => {
 			for (let i = 0; i < newApp.roles[key].length; i++) {
 				let email = newApp.roles[key][i];
 
-				if (validateEmail(newApp.roles[key])) {
+				if (validateEmail(email)) {
 					//If the user exists, update the user's apps array with the new app's id.
 					if (await User.exists({ email: email })) {
 						const updatedUser = await User.findOne({ email: email });
