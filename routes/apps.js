@@ -4,6 +4,25 @@ const App = require('../models/App');
 const User = require('../models/User');
 const validateEmail = require('../utils/validateEmail');
 
+
+function compareRoles(oldRoles, newRoles) {
+  const oldEmails = getEmailsFromRoles(oldRoles);
+  const newEmails = getEmailsFromRoles(newRoles);
+
+  const addedEmails = newEmails.filter(email => !oldEmails.includes(email));
+  const removedEmails = oldEmails.filter(email => !newEmails.includes(email));
+
+  return { addedEmails, removedEmails };
+}
+
+function getEmailsFromRoles(roles) {
+  const emails = [];
+  for (const key in roles) {
+    emails.push(...roles[key]);
+  }
+  return emails;
+}
+
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
 	// REVIEW deleted dataSources and views becuase the client will not be able to pass at this point
@@ -85,25 +104,55 @@ router.get('/:id', async (req, res) => {
 
 // ROUTE crUd = update an App
 router.put('/:id', async (req, res) => {
-	const id = req.params.id;
-	// NOTE usually updates tables field
-	const update = req.body;
+	// FIXME: The user is not being updated when the app is updated (app id not correctly being updated in the user model)
+  const id = req.params.id;
+  const update = req.body;
 
-	try {
-		// const updatedApp = await App.findByIdAndUpdate(id, update, { new: true });
-		// console.log('App updated successfully:', updatedApp);
+  try {
+    const currentApp = await App.findById(id)
 
-		// res.status(200).json(updatedApp);
+    // Check if roles have been updated
+    if (update.roles) {
+      const oldRoles = currentApp.roles;
+      const newRoles = update.roles;
 
-		await App.findByIdAndUpdate(id, update);
-		console.log(`App ${id} updated successfully`);
+      // Get added and removed emails
+      const { addedEmails, removedEmails } = compareRoles(oldRoles, newRoles);
 
-		res.status(204).send();
-	} catch (error) {
-		console.error('Error while updating app: ', error);
+      // Process added emails
+      for (const email of addedEmails) {
+        if (validateEmail(email)) {
+          if (await User.exists({ email: email })) {
+            const updatedUser = await User.findOne({ email: email });
+            updatedUser.apps.push(id);
+            await updatedUser.save();
+          } else {
+            await User.create({ email: email, apps: [id] });
+          }
+        }
+      }
 
-		res.status(500).json({ message: `Failed to update App ${id}` });
-	}
+      // Process removed emails
+      for (const email of removedEmails) {
+        if (validateEmail(email)) {
+          const updatedUser = await User.findOne({ email: email });
+          if (updatedUser) {
+            updatedUser.apps.pull(id);
+            await updatedUser.save();
+          }
+        }
+      }
+    }
+
+    await App.findByIdAndUpdate(id, update);
+    console.log(`App ${id} updated successfully`);
+
+    res.status(204).send();
+  } catch (error) {
+    console.error('Error while updating app: ', error);
+
+    res.status(500).json({ message: `Failed to update App ${id}` });
+  }
 });
 
 // ROUTE cruD - delete an App
@@ -132,3 +181,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
