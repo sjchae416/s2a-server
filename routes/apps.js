@@ -5,23 +5,23 @@ const User = require('../models/User');
 const validateEmail = require('../utils/validateEmail');
 
 
-function compareRoles(oldRoles, newRoles) {
-  const oldEmails = getEmailsFromRoles(oldRoles);
-  const newEmails = getEmailsFromRoles(newRoles);
+// function compareRoles(oldRoles, newRoles) {
+//   const oldEmails = getEmailsFromRoles(oldRoles);
+//   const newEmails = getEmailsFromRoles(newRoles);
 
-  const addedEmails = newEmails.filter(email => !oldEmails.includes(email));
-  const removedEmails = oldEmails.filter(email => !newEmails.includes(email));
+//   const addedEmails = newEmails.filter(email => !oldEmails.includes(email));
+//   const removedEmails = oldEmails.filter(email => !newEmails.includes(email));
 
-  return { addedEmails, removedEmails };
-}
+//   return { addedEmails, removedEmails };
+// }
 
-function getEmailsFromRoles(roles) {
-  const emails = [];
-  for (const key in roles) {
-    emails.push(...roles[key]);
-  }
-  return emails;
-}
+// function getEmailsFromRoles(roles) {
+//   const emails = [];
+//   for (const key in roles) {
+//     emails.push(...roles[key]);
+//   }
+//   return emails;
+// }
 
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
@@ -105,44 +105,44 @@ router.get('/:id', async (req, res) => {
 // ROUTE crUd = update an App
 router.put('/:id', async (req, res) => {
 	// FIXME: The user is not being updated when the app is updated (app id not correctly being updated in the user model)
-  const id = req.params.id;
-  const update = req.body;
+  // const id = req.params.id;
+  // const update = req.body;
 
-  try {
-    const currentApp = await App.findById(id)
+   try {
+  //   const currentApp = await App.findById(id)
 
-    // Check if roles have been updated
-    if (update.roles) {
-      const oldRoles = currentApp.roles;
-      const newRoles = update.roles;
+  //   // Check if roles have been updated
+  //   if (update.roles) {
+  //     const oldRoles = currentApp.roles;
+  //     const newRoles = update.roles;
 
-      // Get added and removed emails
-      const { addedEmails, removedEmails } = compareRoles(oldRoles, newRoles);
+  //     // Get added and removed emails
+  //     const { addedEmails, removedEmails } = compareRoles(oldRoles, newRoles);
 
-      // Process added emails
-      for (const email of addedEmails) {
-        if (validateEmail(email)) {
-          if (await User.exists({ email: email })) {
-            const updatedUser = await User.findOne({ email: email });
-            updatedUser.apps.push(id);
-            await updatedUser.save();
-          } else {
-            await User.create({ email: email, apps: [id] });
-          }
-        }
-      }
+  //     // Process added emails
+  //     for (const email of addedEmails) {
+  //       if (validateEmail(email)) {
+  //         if (await User.exists({ email: email })) {
+  //           const updatedUser = await User.findOne({ email: email });
+  //           updatedUser.apps.push(id);
+  //           await updatedUser.save();
+  //         } else {
+  //           await User.create({ email: email, apps: [id] });
+  //         }
+  //       }
+  //     }
 
-      // Process removed emails
-      for (const email of removedEmails) {
-        if (validateEmail(email)) {
-          const updatedUser = await User.findOne({ email: email });
-          if (updatedUser) {
-            updatedUser.apps.pull(id);
-            await updatedUser.save();
-          }
-        }
-      }
-    }
+  //     // Process removed emails
+  //     for (const email of removedEmails) {
+  //       if (validateEmail(email)) {
+  //         const updatedUser = await User.findOne({ email: email });
+  //         if (updatedUser) {
+  //           updatedUser.apps.pull(id);
+  //           await updatedUser.save();
+  //         }
+  //       }
+  //     }
+  //   }
 
     await App.findByIdAndUpdate(id, update);
     console.log(`App ${id} updated successfully`);
