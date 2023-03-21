@@ -3,12 +3,37 @@ const router = express.Router();
 const View = require('../models/View');
 
 // ROUTE Crud - create a View
-router.post('/:appId', async (req, res) => {
-	const appId = req.params.appId;
-	// FIXME add DataSource! and other required: true!
+router.post('/', async (req, res) => {
+	const {
+		name,
+		table,
+		columns,
+		viewType,
+		allowedActions,
+		roles,
+		// filter,
+		// userFilter,
+		// editFilter,
+		// editableCols,
+    // REVIEW necessary?
+		// appId,
+	} = req.body;
 
 	try {
-		const newView = await View.create({ app: appId });
+		const newView = await View.create({
+			name: name,
+			table: table,
+			columns: columns,
+			viewType: viewType,
+			allowedActions: allowedActions,
+			roles: roles,
+			filter: filter,
+			userFilter: userFilter,
+			editFilter: editFilter,
+      editableCols: editableCols,
+      // REVIEW necessary?
+			// app: appId,
+		});
 		console.log('New view created successfully: ', newView);
 
 		res.status(201).json(newView);

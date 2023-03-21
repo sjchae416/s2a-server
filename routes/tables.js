@@ -3,20 +3,24 @@ const router = express.Router();
 const Table = require('../models/Table');
 
 // ROUTE Crud - create a Table
-router.post('/:id', async (req, res) => {
-	const appId = req.params.id;
+router.post('/', async (req, res) => {
+	const { name, url, sheetIndex, keys, columns } = req.body;
 
 	try {
-		const newTable = await Table.create({ app: appId });
+		const newTable = await Table.create({
+			name: name,
+			url: url,
+			sheetIndex: sheetIndex,
+			keys: keys,
+			columns: columns,
+		});
 		console.log('New Table created successfully: ', newTable);
 
 		res.status(201).json(newTable);
 	} catch (error) {
 		console.error('Error while creating new Table: ', error);
 
-		res
-			.status(500)
-			.json({ message: `Failed to create new Table ${appId}` });
+		res.status(500).json({ message: `Failed to create new Table ${appId}` });
 	}
 });
 
