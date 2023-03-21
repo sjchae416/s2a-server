@@ -7,7 +7,7 @@ const validateEmail = require('../utils/validateEmail');
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
 	// REVIEW deleted dataSources and views becuase the client will not be able to pass at this point
-	const { name, creator, roles, roleMembershipSheet } = req.body;
+	const { name, creator, roles, roleMembershipSheet, published } = req.body;
 
 	try {
 		const newApp = await App.create({
@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
 			creator: creator,
 			roles: roles,
 			roleMembershipSheet: roleMembershipSheet,
+			published: published,
 		});
 
 		//Iterates through the array of values under each key in the roles object.
