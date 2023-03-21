@@ -35,7 +35,7 @@ const tableSchema = new Schema({
 			// Boolean indicating whether values in this column should be used as the link text for references to records in this table. This attribute should be set to true for at most one column per table.
 			label: {
 				type: Boolean,
-				required: true,
+				// required: true,
 			},
 			// whether the column is a reference to another table, and if so, which table
 			reference: {

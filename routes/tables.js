@@ -43,10 +43,10 @@ router.get('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const Table = await Table.findById(id);
-		console.log('Table found: ', Table);
+		const table = await Table.findById(id);
+		console.log('Table found: ', table);
 
-		res.status(200).json(Table);
+		res.status(200).json(table);
 	} catch (error) {
 		console.error('Error while finding Table: ', error);
 
