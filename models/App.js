@@ -12,7 +12,7 @@ const appSchema = new Schema({
 		required: true,
 	},
 	// a set of tables
-	dataSources: [
+	tables: [
 		{
 			type: Schema.Types.ObjectId,
 			ref: 'Table',

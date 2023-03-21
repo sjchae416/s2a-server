@@ -4,19 +4,18 @@ const User = require('../models/User');
 const validateEmail = require('../utils/validateEmail');
 
 // ROUTE Crud - create a User
-router.post('/:email', async (req, res) => {
-	const email = req.params.email;
+router.post('/', async (req, res) => {
+	const email = req.body.email;
 
 	try {
-		if(validateEmail(email)){
+		if (validateEmail(email)) {
 			const newUser = await User.create({ email: email });
 			console.log('New user created successfully: ', newUser);
 			res.status(201).json(newUser);
-		}else {
-			console.log("Invalid email address");
+		} else {
+			console.log('Invalid email address');
 			res.status(400).json({ message: `Invalid email address ${email}` });
 		}
-		
 	} catch (error) {
 		console.error('Error while creating new user: ', error);
 
@@ -39,18 +38,18 @@ router.get('/', async (req, res) => {
 });
 
 // ROUTE cRud - read a User
-router.get('/:id', async (req, res) => {
-	const id = req.params.id;
+router.get('/:email', async (req, res) => {
+	const email = req.params.email;
 
 	try {
-		const user = await User.findById(id);
+		const user = await User.findOne({ email: email });
 		console.log('User found: ', user);
 
 		res.status(200).json(user);
 	} catch (error) {
 		console.error('Error while finding user: ', error);
 
-		res.status(404).json({ message: `User ${id} not found` });
+		res.status(404).json({ message: `User ${user.id} not found` });
 	}
 });
 
