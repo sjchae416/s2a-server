@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 		// editFilter,
 		// editableCols,
     // REVIEW necessary?
-		// appId,
+		appId,
 	} = req.body;
 
 	try {
@@ -27,12 +27,12 @@ router.post('/', async (req, res) => {
 			viewType: viewType,
 			allowedActions: allowedActions,
 			roles: roles,
-			filter: filter,
-			userFilter: userFilter,
-			editFilter: editFilter,
-      editableCols: editableCols,
+			// filter: filter,
+			// userFilter: userFilter,
+			// editFilter: editFilter,
+      // editableCols: editableCols,
       // REVIEW necessary?
-			// app: appId,
+			app: appId,
 		});
 		console.log('New view created successfully: ', newView);
 
@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
 });
 
 // ROUTE cRud - read all app-specific Views
-router.get('/:appId', async (req, res) => {
+router.get('/app/:appId', async (req, res) => {
 	const appId = req.params.appId;
 
 	try {

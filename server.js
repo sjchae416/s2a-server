@@ -27,7 +27,7 @@ db.on('error', (err) => console.error('connection error:', err));
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/apps', appRouter);
-app.unsubscribe('/tables', tableRouter);
+app.use('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('*', (req, res) => {
 	res.status(404).json({ message: '404 Page Not Found' });
