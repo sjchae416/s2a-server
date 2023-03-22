@@ -4,6 +4,7 @@ const View = require('../models/View');
 
 // ROUTE Crud - create a View
 router.post('/', async (req, res) => {
+
 	const {
 		name,
 		table,
