@@ -104,9 +104,9 @@ router.get('/:id', async (req, res) => {
 
 // ROUTE crUd = update an App
 router.put('/:id', async (req, res) => {
-	// FIXME: The user is not being updated when the app is updated (app id not correctly being updated in the user model)
-  // const id = req.params.id;
-  // const update = req.body;
+	// FIXME The user is not being updated when the app is updated (app id not correctly being updated in the user model)
+  const id = req.params.id;
+  const update = req.body;
 
    try {
   //   const currentApp = await App.findById(id)
