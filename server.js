@@ -42,7 +42,7 @@ app.use('*', (req, res) => {
   res.status(404).json({ message: '404 Page Not Found' });
 });
 
-app.listen(process.env.PORT || 3666, () => {
+app.listen(process.env.PORT, () => {
 	console.log(`Server is running on port ${process.env.PORT}`);
 });
 
