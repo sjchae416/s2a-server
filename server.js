@@ -38,13 +38,13 @@ app.use('/apps', appRouter);
 app.use('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('/auth', authRouter);
+app.use('*', (req, res) => {
+  res.status(404).json({ message: '404 Page Not Found' });
+});
 
 app.listen(process.env.PORT || 3666, () => {
 	console.log(`Server is running on port ${process.env.PORT}`);
 });
 
-app.use('*', (req, res) => {
-	res.status(404).json({ message: '404 Page Not Found' });
-});
 
 module.exports = app;
