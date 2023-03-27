@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Table = require('../models/Table');
+const View = require('../models/View');
 
 // ROUTE Crud - create a Table
 router.post('/', async (req, res) => {
@@ -85,6 +86,9 @@ router.delete('/:id', async (req, res) => {
 		// console.log('Table deleted successfully', deletedTable);
 
 		// res.status(200).json(deletedTable);
+
+		await View.deleteMany({ table: id });
+		console.log(`All Views with Table ${id} deleted successfully`);
 
 		await Table.findByIdAndDelete(id);
 		console.log(`Table ${id} deleted successfully`);
