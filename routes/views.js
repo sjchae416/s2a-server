@@ -12,12 +12,10 @@ router.post('/', async (req, res) => {
 		viewType,
 		allowedActions,
 		roles,
-		// filter,
-		// userFilter,
-		// editFilter,
-		// editableCols,
-    // REVIEW necessary?
-		appId,
+		filter,
+		userFilter,
+		editFilter,
+		editableCols,
 	} = req.body;
 
 	try {
@@ -28,12 +26,10 @@ router.post('/', async (req, res) => {
 			viewType: viewType,
 			allowedActions: allowedActions,
 			roles: roles,
-			// filter: filter,
-			// userFilter: userFilter,
-			// editFilter: editFilter,
-      // editableCols: editableCols,
-      // REVIEW necessary?
-			app: appId,
+			filter: filter,
+			userFilter: userFilter,
+			editFilter: editFilter,
+      editableCols: editableCols,
 		});
 		console.log('New view created successfully: ', newView);
 
