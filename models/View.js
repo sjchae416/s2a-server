@@ -46,11 +46,6 @@ const viewSchema = new Schema({
 	editableCols: {
 		type: [String],
 	},
-	// app: {
-	// 	type: Schema.Types.ObjectId,
-	// 	ref: 'App',
-	// 	required: true,
-	// },
 });
 
 module.exports = mongoose.model('View', viewSchema);

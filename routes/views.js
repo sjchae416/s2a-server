@@ -55,20 +55,6 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// ROUTE cRud - read all app-specific Views
-router.get('/app/:appId', async (req, res) => {
-	const appId = req.params.appId;
-
-	try {
-		const filterdViews = await View.find({ app: appId });
-		console.log('All filtered views found successfully: ', filterdViews);
-
-		res.status(200).json(filterdViews);
-	} catch (error) {
-		console.error('Error while finding view: ', error);
-	}
-});
-
 // ROUTE cRud - read a View
 router.get('/:id', async (req, res) => {
 	const id = req.params.id;
