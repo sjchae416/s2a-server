@@ -2,6 +2,30 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 require('../google_oauth');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+
+
+async function getUserSheetsData(accessToken) {
+  const oauth2Client = new OAuth2();
+  oauth2Client.setCredentials({ access_token: accessToken });
+  const sheets = google.sheets({ version: 'v4', auth: oauth2Client });
+  const spreadsheetId = '1z7DWKEzSaDw3KQ4FJY-lQK1LniZcu-erw-p0kGiz_gM';
+  const range = 'Form Data';
+
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range,
+    });
+
+    const rows = response.data.values;
+    return rows;
+  } catch (error) {
+    console.log('Error accessing user\'s Google Sheet:', error);
+    return null;
+  }
+}
 
 
 
@@ -15,7 +39,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/google',
-  passport.authenticate('google', { scope: [ 'email', 'profile' ] }
+  passport.authenticate('google', { scope: [ 'email', 'profile', 'https://www.googleapis.com/auth/spreadsheets.readonly'] }
 ));
 
 router.get('/google/callback',
@@ -25,11 +49,23 @@ router.get('/google/callback',
   })
 );
 
-router.get('/protected', isLoggedIn, (req, res) => {
-  res.send(`Name: ${req.user.displayName}<br>
-            Email: ${req.user.emails[0].value}
-  
-  `);
+router.get('/protected', isLoggedIn, async (req, res) => {
+  const rows = await getUserSheetsData(req.user.accessToken);
+
+  if (rows) {
+    const rowsHtml = rows.map(row => `<li>${row.join(', ')}</li>`).join('');
+    res.send(`
+      Name: ${req.user.displayName}<br>
+      Email: ${req.user.emails[0].value}<br>
+      <ul>${rowsHtml}</ul>
+    `);
+  } else {
+    res.send(`
+      Name: ${req.user.displayName}<br>
+      Email: ${req.user.emails[0].value}<br>
+      <p>Error retrieving Google Sheet data.</p>
+    `);
+  }
 });
 
 router.get('/logout', (req, res) => {
