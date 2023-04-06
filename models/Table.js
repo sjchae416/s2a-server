@@ -16,7 +16,7 @@ const tableSchema = new Schema({
 		required: true,
 	},
 	// a column whose value is unique for each record. For simplicity, S2A does not support composite keys
-  // NOTE stores the name of the column described above.
+	// NOTE stores the name of the column described above.
 	keys: {
 		type: String,
 		required: true,
@@ -50,6 +50,8 @@ const tableSchema = new Schema({
 			},
 		},
 	],
+	// REVIEW
+	// lastModifiedDate
 });
 
 module.exports = mongoose.model('Table', tableSchema);
