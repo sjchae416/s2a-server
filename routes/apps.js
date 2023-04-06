@@ -181,6 +181,7 @@ router.delete('/:id', async (req, res) => {
 		}
 		try {
 			// NOTE Remove the app id from the apps array of all users who have access to it.
+			// REVIEW if this does not work, move out ouf try-catch
 			const update = { $pull: { apps: id } };
 			await User.updateMany({ apps: id }, update);
 		} catch (error) {
