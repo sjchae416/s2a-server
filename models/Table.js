@@ -12,7 +12,7 @@ const tableSchema = new Schema({
 	},
 	// the sheet’s position in the list stored in the “sheets” property of the Spreadsheet object
 	sheetIndex: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 
@@ -21,7 +21,7 @@ const tableSchema = new Schema({
 		{
 			name: {
 				type: String,
-				required: true,
+				// required: true,
 			},
 			// the initial value of this column when a record is added to the table. It can be any valid Google Sheets formula. As a special case, it can also be =ADDED_BY(); when a record is added, the email address of the user that added the record is stored in the sheet.
 			initialValue: {
@@ -30,7 +30,7 @@ const tableSchema = new Schema({
 			// a column whose value is unique for each record. For simplicity, S2A does not support composite keys
 			key: {
 				type: Boolean,
-				required: true,
+				// required: true,
 			},
 			// Boolean indicating whether values in this column should be used as the link text for references to records in this table. This attribute should be set to true for at most one column per table.
 			label: {
@@ -46,7 +46,7 @@ const tableSchema = new Schema({
 			// the type of values in the column
 			type: {
 				type: String,
-				required: true,
+				// required: true,
 			},
 		},
 	],

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors')
 const passport = require('passport');
 require('../google_oauth');
 const { google } = require('googleapis');
@@ -10,8 +11,10 @@ async function getUserSheetsData(accessToken) {
   const oauth2Client = new OAuth2();
   oauth2Client.setCredentials({ access_token: accessToken });
   const sheets = google.sheets({ version: 'v4', auth: oauth2Client });
-  const spreadsheetId = '1z7DWKEzSaDw3KQ4FJY-lQK1LniZcu-erw-p0kGiz_gM';
-  const range = 'Form Data';
+  // const spreadsheetId = '1z7DWKEzSaDw3KQ4FJY-lQK1LniZcu-erw-p0kGiz_gM';
+  const spreadsheetId = '1sPm4cJLCi2L5kUDiui_BPQVXmi1g89aQcq21Tbyxcfw';
+  // const range = 'Form Data';
+  const range = 'roleMembership';
 
   try {
     const response = await sheets.spreadsheets.values.get({
@@ -38,7 +41,7 @@ router.get('/', (req, res) => {
   res.send('<a href="/auth/google">Authenticate with Google</a>');
 });
 
-router.get('/google',
+router.get('/google', cors(),
   passport.authenticate('google', { scope: [ 'email', 'profile', 'https://www.googleapis.com/auth/spreadsheets.readonly'] }
 ));
 

@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
-
 
 // ROUTE routers
 const indexRouter = require('./routes/index');
@@ -15,9 +15,22 @@ const tableRouter = require('./routes/tables');
 const authRouter = require('./routes/auth');
 
 app.use(express.json());
+// app.use(cors());
+
+app.use(
+	cors({
+		origin: 'http://localhost:3000',
+	})
+);
 
 // User session
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: true,
+	})
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -33,18 +46,20 @@ db.once('open', () => console.log('Connected to MongoDB'));
 db.on('error', (err) => console.error('connection error:', err));
 
 app.use('/', indexRouter);
+app.get('/port', (req, res) => {
+	res.json({ port: process.env.PORT });
+});
 app.use('/users', userRouter);
 app.use('/apps', appRouter);
 app.use('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('/auth', authRouter);
-app.use('*', (req, res) => {
-  res.status(404).json({ message: '404 Page Not Found' });
+app.get('*', (req, res) => {
+	res.status(404).json({ message: '404 Page Not Found' });
 });
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server is running on port ${process.env.PORT}`);
 });
-
 
 module.exports = app;
