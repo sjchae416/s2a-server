@@ -9,7 +9,6 @@ const cors = require('cors');
 // REVIEW from sj's cse316
 const session = require('express-session');
 const passport = require('passport');
-const cookieSession = require('cookie-session');
 const passportStrategy = require('./passport');
 
 // ROUTE routers
