@@ -35,11 +35,6 @@ const appSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-	// role names and emails for each role
-	roles: {
-		type: Schema.Types.Mixed,
-		required: true,
-	},
 });
 
 module.exports = mongoose.model('App', appSchema);
