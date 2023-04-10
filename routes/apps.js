@@ -30,7 +30,6 @@ router.post('/', async (req, res) => {
 		creator,
 		tables,
 		views,
-		roles,
 		roleMembershipSheet,
 		published,
 	} = req.body;
@@ -41,7 +40,6 @@ router.post('/', async (req, res) => {
 			creator: creator,
 			tables: tables,
 			views: views,
-			roles: roles,
 			roleMembershipSheet: roleMembershipSheet,
 			published: published,
 		});
