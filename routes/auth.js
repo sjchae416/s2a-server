@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+router.get('/token', (req, res) => {
+	if (req.user) {
+		res.status(200).json({
+			error: false,
+			message: 'Successfully fetched access token',
+			accessToken: req.user.accessToken,
+		});
+	} else {
+		res.status(403).json({ error: true, message: 'Not Authorized' });
+	}
+});
 
 router.get(
 	'/google',
@@ -49,7 +60,5 @@ router.get('/logout', (req, res) => {
 		res.redirect(`http://localhost:${process.env.CLIENT_PORT}/login`);
 	});
 });
-
-
 
 module.exports = router;
