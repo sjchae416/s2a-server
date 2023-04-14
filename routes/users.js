@@ -62,15 +62,10 @@ router.put('/:id', async (req, res) => {
 
 	try {
 		// NOTE uncomment below 3 lines if result needs to be sent and logged
-		// const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
-		// console.log('User updated successfully:', updatedUser);
+		const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
+		console.log('User updated successfully:', updatedUser);
 
-		// res.status(200).json(updatedUser);
-
-		await User.findByIdAndUpdate(id, update);
-		console.log(`User ${id} updated successfully`);
-
-		res.status(204).send();
+		res.status(200).json(updatedUser);
 	} catch (error) {
 		console.error('Error while updating user: ', error);
 
