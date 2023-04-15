@@ -35,6 +35,18 @@ const appSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
+	// REVIEW createdAt is saved in DB in ISO 8601 format (UTC) so convert this timestamp to ETC and subtract 4 hours from UTC
+	createdAt: {
+		type: Date,
+		required: true,
+		default: Date.now,
+	},
+	lastModifiedDate: {
+		type: Date,
+	},
+	lastOpenedDate: {
+		type: Date,
+	},
 });
 
 module.exports = mongoose.model('App', appSchema);

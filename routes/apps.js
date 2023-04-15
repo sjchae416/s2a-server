@@ -32,6 +32,9 @@ router.post('/', async (req, res) => {
 		views,
 		roleMembershipSheet,
 		published,
+		createdAt,
+		lastModifiedDate,
+		lastOpenedDate,
 	} = req.body;
 
 	try {
@@ -42,8 +45,12 @@ router.post('/', async (req, res) => {
 			views: views,
 			roleMembershipSheet: roleMembershipSheet,
 			published: published,
+			createdAt: createdAt,
+			lastModifiedDate: lastModifiedDate,
+			lastOpenedDate: lastOpenedDate,
 		});
 
+		// FIXME App.roles does not exits anymore!
 		// NOTE Iterates through the array of values under each key in the roles object.
 		for (let key in newApp.roles) {
 			for (let i = 0; i < newApp.roles[key].length; i++) {
@@ -111,7 +118,6 @@ router.get('/:id', async (req, res) => {
 
 // ROUTE crUd = update an App
 router.put('/:id', async (req, res) => {
-	// FIXME The user is not being updated when the app is updated (app id not correctly being updated in the user model)
 	const id = req.params.id;
 	const update = req.body;
 
