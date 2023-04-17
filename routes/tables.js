@@ -54,15 +54,14 @@ router.post('/loadtable', ensureAuthenticated, async (req, res) => {
 
 // ROUTE Crud - create a Table
 router.post('/', async (req, res) => {
-	const { name, url, sheetIndex, keys, columns } = req.body;
+	const { name, url, sheetIndex, config } = req.body;
 
 	try {
 		const newTable = await Table.create({
 			name: name,
 			url: url,
 			sheetIndex: sheetIndex,
-			keys: keys,
-			columns: columns,
+			columns: config,
 		});
 		console.log('New Table created successfully: ', newTable);
 
