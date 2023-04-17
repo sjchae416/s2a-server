@@ -13,6 +13,12 @@ const userSchema = new Schema({
 			ref: 'App',
 		},
 	],
+	tables: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Table',
+		},
+	],
 	views: [
 		{
 			type: Schema.Types.ObjectId,

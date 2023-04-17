@@ -11,13 +11,6 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	// a set of tables
-	tables: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Table',
-		},
-	],
 	// a set of views
 	views: [
 		{
