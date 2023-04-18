@@ -31,16 +31,19 @@ const viewSchema = new Schema({
 		required: true,
 	},
 	// a column with type Boolean. The view includes only records for which this column’s value equals true.
+	// NOTE name of a column with Booleans to be used as a filter
 	filter: {
-		type: [Boolean],
+		type: String,
 	},
 	// a column with type Text. The view includes only records for which this column’s value equals the current user’s (logged in) email address
+	// NOTE name of a column with Texts(Strings) to be uesd as a userFiter
 	userFilter: {
-		type: [String],
+		type: String,
 	},
 	// a column with type Boolean. The user can edit a record in this view only if this column’s value equals true.
+	// NOTE name of columns that can be edited
 	editFilter: {
-		type: [Boolean],
+		type: [String],
 	},
 	// the subset of columns in the view that is editable in the view
 	editableCols: {
