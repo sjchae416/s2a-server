@@ -28,17 +28,18 @@ const appSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-	// REVIEW createdAt is saved in DB in ISO 8601 format (UTC) so convert this timestamp to ETC and subtract 4 hours from UTC
 	createdAt: {
-		type: Date,
+		type: String,
 		required: true,
-		default: Date.now,
+		default: new Date().toLocaleString('en-US', {
+			timeZone: 'America/New_York',
+		}),
 	},
 	lastModifiedDate: {
-		type: Date,
+		type: String,
 	},
 	lastOpenedDate: {
-		type: Date,
+		type: String,
 	},
 });
 
