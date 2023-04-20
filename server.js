@@ -9,7 +9,8 @@ const cors = require('cors');
 // REVIEW from sj's cse316
 const session = require('express-session');
 const passport = require('passport');
-const passportStrategy = require('./passport');
+// const passportStrategy = require('./passport');
+require('./passport2');
 
 // ROUTE routers
 const indexRouter = require('./routes/index');
@@ -18,7 +19,8 @@ const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
 const tableRouter = require('./routes/tables');
 // const authRouter = require('./routes/authBackup');
-const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth2');
+// const authRouter = require('./routes/auth');
 
 app.use(express.json());
 
@@ -37,7 +39,7 @@ app.use(
 		name: 'passportSession',
 		secret: process.env.SESSION_SECRET,
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		cookie: {
 			httpOnly: true, // NOTE specifies that the cookie should only be sent over HTTP, not through client-side JS
 			expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // NOTE sets the expiration time of the cookie to one week from the current time

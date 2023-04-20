@@ -30,10 +30,6 @@ const appSchema = new Schema({
 	},
 	createdAt: {
 		type: String,
-		required: true,
-		default: new Date().toLocaleString('en-US', {
-			timeZone: 'America/New_York',
-		}),
 	},
 	lastModifiedDate: {
 		type: String,
