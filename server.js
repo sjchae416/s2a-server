@@ -20,6 +20,7 @@ const viewRouter = require('./routes/views');
 const tableRouter = require('./routes/tables');
 // const authRouter = require('./routes/authBackup');
 const authRouter = require('./routes/auth2');
+const adminRouter = require('./routes/admin');
 // const authRouter = require('./routes/auth');
 
 app.use(express.json());
@@ -82,6 +83,7 @@ app.use('/apps', appRouter);
 app.use('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
 app.get('*', (req, res) => {
 	res.status(404).json({ message: '404 Page Not Found' });
 });
