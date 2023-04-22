@@ -50,30 +50,31 @@ router.post('/', async (req, res) => {
 			lastOpenedDate: lastOpenedDate,
 		});
 
-		// FIXME App.roles does not exits anymore!
+		// FIXME App.roles does not exits anymore! Use the app.roleMembershipSheet
 		// NOTE Iterates through the array of values under each key in the roles object.
 		for (let key in newApp.roles) {
 			for (let i = 0; i < newApp.roles[key].length; i++) {
 				let email = newApp.roles[key][i];
 
-				if (validateEmail(email)) {
-					// NOTE If the user exists, update the user's apps array with the new app's id.
-					if (await User.exists({ email: email })) {
-						const updatedUser = await User.findOne({ email: email });
-						console.log('User found: ', updatedUser);
-						updatedUser.apps.push(newApp._id);
-						await updatedUser.save();
-						console.log('User updated successfully:', updatedUser);
-					}
-					// NOTE If the user does not exist, create a new user and add the app to their apps array.
-					else {
-						const newUser = await User.create({
-							email: email,
-							apps: [newApp._id],
-						});
-						console.log('New user created successfully: ', newUser);
-					}
+				// REVIEW no use of validation anymore and reasons discussed and action agreed
+				// if (validateEmail(email)) {
+				// NOTE If the user exists, update the user's apps array with the new app's id.
+				if (await User.exists({ email: email })) {
+					const updatedUser = await User.findOne({ email: email });
+					console.log('User found: ', updatedUser);
+					updatedUser.apps.push(newApp._id);
+					await updatedUser.save();
+					console.log('User updated successfully:', updatedUser);
 				}
+				// NOTE If the user does not exist, create a new user and add the app to their apps array.
+				else {
+					const newUser = await User.create({
+						email: email,
+						apps: [newApp._id],
+					});
+					console.log('New user created successfully: ', newUser);
+				}
+				// }
 			}
 		}
 		console.log('New app created successfully: ', newApp);
@@ -82,7 +83,15 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error('Error while creating new app: ', error);
 
-		res.status(500).json({ message: `Failed to create new App ${name}` });
+		if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+			res.status(400).json({
+				message: 'The app name already exists!',
+				code: error.code,
+				keyPattern: error.keyPattern,
+			});
+		} else {
+			res.status(500).json({ message: `Failed to create new App ${name}` });
+		}
 	}
 });
 
