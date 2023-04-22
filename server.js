@@ -73,7 +73,7 @@ db.on('error', (err) => console.error('connection error:', err));
 // NOTE router endpoint modules
 app.use('/', indexRouter);
 app.get(
-	`http://localhost:${process.env.CLIENT_PORT}/server/port`,
+	'http://localhost:3000/server/port',
 	(req, res) => {
 		res.json({ port: process.env.PORT });
 	}
