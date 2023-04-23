@@ -4,7 +4,6 @@ const View = require('../models/View');
 
 // ROUTE Crud - create a View
 router.post('/', async (req, res) => {
-
 	const {
 		name,
 		table,
@@ -29,7 +28,7 @@ router.post('/', async (req, res) => {
 			filter: filter,
 			userFilter: userFilter,
 			editFilter: editFilter,
-      editableCols: editableCols,
+			editableCols: editableCols,
 		});
 		console.log('New view created successfully: ', newView);
 
@@ -37,7 +36,7 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error('Error while creating new view: ', error);
 
-		res.status(500).json({ message: `Failed to create new View ${appId}` });
+		res.status(500).json({ message: `Failed to create new View ${name}` });
 	}
 });
 
