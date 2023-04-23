@@ -72,7 +72,16 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error('Error while creating new Table: ', error);
 
-		res.status(500).json({ message: `Failed to create new Table ${name}` });
+		// REVIEW this will send specific error msg for duplicate key
+		if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+			res.status(400).json({
+				message: 'The table name already exists!',
+				code: error.code,
+				keyPattern: error.keyPattern,
+			});
+		} else {
+			res.status(500).json({ message: `Failed to create new Table ${name}` });
+		}
 	}
 });
 
