@@ -3,7 +3,6 @@ const router = express.Router();
 const App = require('../models/App');
 const User = require('../models/User');
 const View = require('../models/View');
-const validateEmail = require('../utils/validateEmail');
 
 // function compareRoles(oldRoles, newRoles) {
 //   const oldEmails = getEmailsFromRoles(oldRoles);
@@ -28,7 +27,6 @@ router.post('/', async (req, res) => {
 	const {
 		name,
 		creator,
-		tables,
 		views,
 		roleMembershipSheet,
 		published,
@@ -41,7 +39,6 @@ router.post('/', async (req, res) => {
 		const newApp = await App.create({
 			name: name,
 			creator: creator,
-			tables: tables,
 			views: views,
 			roleMembershipSheet: roleMembershipSheet,
 			published: published,
@@ -83,15 +80,7 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error('Error while creating new app: ', error);
 
-		if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
-			res.status(400).json({
-				message: 'The app name already exists!',
-				code: error.code,
-				keyPattern: error.keyPattern,
-			});
-		} else {
-			res.status(500).json({ message: `Failed to create new App ${name}` });
-		}
+		res.status(500).json({ message: `Failed to create new App ${name}` });
 	}
 });
 

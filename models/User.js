@@ -19,12 +19,12 @@ const userSchema = new Schema({
 			ref: 'Table',
 		},
 	],
-	views: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'View',
-		},
-	],
+	// views: [
+	// 	{
+	// 		type: Schema.Types.ObjectId,
+	// 		ref: 'View',
+	// 	},
+	// ],
 	accessToken: {
 		type: String,
 	},
