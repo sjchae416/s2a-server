@@ -37,8 +37,10 @@ router.get(
 
 router.get('/authenticated', (req, res) => {
 	if (req.user) {
+		console.log("user exists");
 		res.json(req.user);
 	} else {
+		console.log("user doesn't exist");
 		res.json(null);
 	}
 });

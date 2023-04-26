@@ -4,7 +4,7 @@ const appSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true,
+		// unique: true,
 	},
 	// the user who created the app
 	creator: {

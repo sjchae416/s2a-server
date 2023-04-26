@@ -5,7 +5,7 @@ const tableSchema = new Schema({
 		type: String,
 		required: true,
 		// FIXME implment duplicate check when creat Table requested from the front and handle error with proper reason
-		unique: true,
+		// unique: true,
 	},
 	// the URL of the spreadsheet containing the sheet.
 	url: {

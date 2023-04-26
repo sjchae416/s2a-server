@@ -83,15 +83,15 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error('Error while creating new app: ', error);
 
-		if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
-			res.status(400).json({
-				message: 'The app name already exists!',
-				code: error.code,
-				keyPattern: error.keyPattern,
-			});
-		} else {
-			res.status(500).json({ message: `Failed to create new App ${name}` });
-		}
+		// if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+		// 	res.status(400).json({
+		// 		message: 'The app name already exists!',
+		// 		code: error.code,
+		// 		keyPattern: error.keyPattern,
+		// 	});
+		// } else {
+		// 	res.status(500).json({ message: `Failed to create new App ${name}` });
+		// }
 	}
 });
 
