@@ -4,8 +4,6 @@ const tableSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		// FIXME implment duplicate check when creat Table requested from the front and handle error with proper reason
-		// unique: true,
 	},
 	// the URL of the spreadsheet containing the sheet.
 	url: {
@@ -42,10 +40,7 @@ const tableSchema = new Schema({
 			// whether the column is a reference to another table, and if so, which table
 			reference: {
 				// will store either Boolean(false) OR Schema.Types.ObjectId
-				// type: Schema.Types.Mixed,
-				// ref: 'Table',
-				type: String,
-				//FIXME - For testing purposes, set type as String. Change it back to Schema.Types.ObjectId
+				type: Schema.Types.Mixed,
 			},
 			// the type of values in the column
 			type: {
