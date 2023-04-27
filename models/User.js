@@ -7,12 +7,12 @@ const userSchema = new Schema({
 		unique: true,
 		immutable: true,
 	},
-	apps: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'App',
-		},
-	],
+	// apps: [
+	// 	{
+	// 		type: Schema.Types.ObjectId,
+	// 		ref: 'App',
+	// 	},
+	// ],
 	tables: [
 		{
 			type: Schema.Types.ObjectId,
