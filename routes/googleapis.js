@@ -66,7 +66,27 @@ async function getUserSheetsData(sheetId, sheetIndex, accessToken) {
   }
 }
 
-// ROUTE Crud - load table values
+// ROUTE - get spreadsheet metadata
+router.post("/getmetadata", ensureAuthenticated, async (req, res) => {
+  const { url } = req.body;
+  const spreadsheetId = extractSheetId(url);
+
+  const oauth2Client = new OAuth2();
+  oauth2Client.setCredentials({ access_token: req.user.accessToken });
+  const sheets = google.sheets({ version: "v4", auth: oauth2Client });
+
+  try {
+    const response = await sheets.spreadsheets.get({
+      spreadsheetId,
+    });
+    res.send(response.data);
+  } catch (error) {
+    console.log("Error getting spreadsheet metadata:", error);
+    res.status(500).send(error);
+  }
+});
+
+// ROUTE - load table values
 router.post("/loadsheet", ensureAuthenticated, async (req, res) => {
   const { name, url, sheetIndex } = req.body;
   try {
@@ -82,7 +102,7 @@ router.post("/loadsheet", ensureAuthenticated, async (req, res) => {
   
 });
 
-// ROUTE Crud - edit sheet values
+// ROUTE - edit sheet values
 router.post("/updatesheet", ensureAuthenticated, async (req, res) => {
   const { name, url, range, values } = req.body;
   const spreadsheetId = extractSheetId(url);
@@ -96,6 +116,41 @@ router.post("/updatesheet", ensureAuthenticated, async (req, res) => {
     res.send(response);
   } catch (error) {
     console.log("Error updating user's Google Sheet:", error);
+    res.status(500).send(error);
+  }
+});
+
+// ROUTE - add row to sheet
+router.post("/addrow", ensureAuthenticated, async (req, res) => {
+  const { url, sheetIndex, numRows } = req.body;
+  const spreadsheetId = extractSheetId(url);
+
+  const oauth2Client = new OAuth2();
+  oauth2Client.setCredentials({ access_token: req.user.accessToken });
+  const sheets = google.sheets({ version: "v4", auth: oauth2Client });
+
+  try {
+    const response = await sheets.spreadsheets.batchUpdate({
+      spreadsheetId,
+      resource: {
+        requests: [
+          {
+            insertDimension: {
+              range: {
+                sheetId: sheetIndex,
+                dimension: "ROWS",
+                startIndex: 0,
+                endIndex: numRows
+              },
+              inheritFromBefore: false
+            }
+          }
+        ]
+      }
+    });
+    res.send(response.data);
+  } catch (error) {
+    console.log("Error adding rows to Google Sheet:", error);
     res.status(500).send(error);
   }
 });
