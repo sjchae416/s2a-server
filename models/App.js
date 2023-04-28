@@ -35,6 +35,7 @@ const appSchema = new Schema({
 	},
 	lastOpenedDate: {
 		type: String,
+		default: 'Never Opened Yet',
 	},
 });
 
