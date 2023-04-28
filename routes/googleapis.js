@@ -11,7 +11,7 @@ async function updateUserSheet(spreadsheetId, range, values, accessToken) {
   let data = [];
   data.push({
     range: range,
-    values: [values],
+    values: values,
   });
 
   let resource = {
@@ -67,18 +67,23 @@ async function getUserSheetsData(sheetId, sheetIndex, accessToken) {
 }
 
 // ROUTE Crud - load table values
-router.post("/loadtable", ensureAuthenticated, async (req, res) => {
+router.post("/loadsheet", ensureAuthenticated, async (req, res) => {
   const { name, url, sheetIndex } = req.body;
-  const rows = await getUserSheetsData(
-    extractSheetId(url),
-    sheetIndex,
-    req.user.accessToken
-  );
-  res.send(rows);
+  try {
+    const rows = await getUserSheetsData(
+      extractSheetId(url),
+      sheetIndex,
+      req.user.accessToken
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error(error);
+  }
+  
 });
 
-// ROUTE Crud - edit table values
-router.post("/updateTable", ensureAuthenticated, async (req, res) => {
+// ROUTE Crud - edit sheet values
+router.post("/updatesheet", ensureAuthenticated, async (req, res) => {
   const { name, url, range, values } = req.body;
   const spreadsheetId = extractSheetId(url);
   try {
