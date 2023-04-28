@@ -18,6 +18,7 @@ const userRouter = require('./routes/users');
 const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
 const tableRouter = require('./routes/tables');
+const googleapisRouter = require('./routes/googleapis');
 // const authRouter = require('./routes/authBackup');
 const authRouter = require('./routes/auth2');
 // const authRouter = require('./routes/auth');
@@ -82,6 +83,7 @@ app.use('/apps', appRouter);
 app.use('/tables', tableRouter);
 app.use('/views', viewRouter);
 app.use('/auth', authRouter);
+app.use('/googleapis', googleapisRouter);
 app.get('*', (req, res) => {
 	res.status(404).json({ message: '404 Page Not Found' });
 });
