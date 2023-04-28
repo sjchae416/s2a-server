@@ -20,7 +20,7 @@ router.get(
 		scope: [
 			'profile',
 			'email',
-			'https://www.googleapis.com/auth/spreadsheets.readonly',
+			'https://www.googleapis.com/auth/spreadsheets',
 		],
 	})
 );

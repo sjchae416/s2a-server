@@ -47,7 +47,6 @@ router.post('/', async (req, res) => {
 			lastOpenedDate: lastOpenedDate,
 		});
 
-		// FIXME App.roles does not exits anymore! Use the app.roleMembershipSheet
 		// NOTE Iterates through the array of values under each key in the roles object.
 		for (let key in newApp.roles) {
 			for (let i = 0; i < newApp.roles[key].length; i++) {
