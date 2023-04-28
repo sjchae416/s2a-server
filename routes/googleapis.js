@@ -81,8 +81,11 @@ router.post("/getmetadata", ensureAuthenticated, async (req, res) => {
     });
     res.send(response.data);
   } catch (error) {
-    console.log("Error getting spreadsheet metadata:", error);
-    res.status(500).send(error);
+    if (error.code === 403) {
+      res.status(403);
+    } else {
+      res.status(500).send(error);
+    }
   }
 });
 
@@ -97,7 +100,11 @@ router.post("/loadsheet", ensureAuthenticated, async (req, res) => {
     );
     res.send(rows);
   } catch (error) {
-    console.error(error);
+    if (error.code === 403) {
+      res.status(403);
+    } else {
+      res.status(500).send(error);
+    }
   }
   
 });
@@ -115,8 +122,11 @@ router.post("/updatesheet", ensureAuthenticated, async (req, res) => {
     );
     res.send(response);
   } catch (error) {
-    console.log("Error updating user's Google Sheet:", error);
-    res.status(500).send(error);
+    if (error.code === 403) {
+      res.status(403);
+    } else {
+      res.status(500).send(error);
+    }
   }
 });
 
@@ -150,8 +160,11 @@ router.post("/addrow", ensureAuthenticated, async (req, res) => {
     });
     res.send(response.data);
   } catch (error) {
-    console.log("Error adding rows to Google Sheet:", error);
-    res.status(500).send(error);
+    if (error.code === 403) {
+      res.status(403);
+    } else {
+      res.status(500).send(error);
+    }
   }
 });
 
