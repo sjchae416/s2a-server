@@ -5,47 +5,35 @@ const viewSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	// the table containing data for this view. A view can display data from only one table
 	table: {
 		type: Schema.Types.ObjectId,
 		ref: 'Table',
 		required: true,
 	},
-	// set of columns of the table whose values are displayed in this view
 	columns: {
 		type: [String],
 	},
-	//  the view type.  Allowed values are “table” and “detail”.
 	viewType: {
 		type: String,
 		required: true,
 	},
-	// actions permitted in this view. This is a subset of: add record, edit record, delete record. For simplicity, it is sufficient to allow “add record” only in table views and to allow “edit record” only in detail views.
 	allowedActions: {
 		type: [String],
 		required: true,
 	},
-	//  a set of app-specific roles with access to this view
 	roles: {
 		type: [String],
 		required: true,
 	},
-	// a column with type Boolean. The view includes only records for which this column’s value equals true.
-	// NOTE name of a column with Booleans to be used as a filter
 	filter: {
 		type: String,
 	},
-	// a column with type Text. The view includes only records for which this column’s value equals the current user’s (logged in) email address
-	// NOTE name of a column with Texts(Strings) to be uesd as a userFiter
 	userFilter: {
 		type: String,
 	},
-	// a column with type Boolean. The user can edit a record in this view only if this column’s value equals true.
-	// NOTE name of columns that can be edited
 	editFilter: {
 		type: [String],
 	},
-	// the subset of columns in the view that is editable in the view
 	editableCols: {
 		type: [String],
 	},
