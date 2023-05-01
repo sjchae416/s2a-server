@@ -171,36 +171,31 @@ router.delete('/:id', async (req, res) => {
 
 	try {
 		const app = await App.findById(id);
+
 		const appViews = app.views;
 		for (const viewId of appViews) {
 			try {
 				await View.findByIdAndDelete(viewId);
 			} catch (error) {
 				console.error('Error deleting a View: ', error);
-				return res.status(404).json({ message: `View ${viewId} not found` });
+
+				return res.status(404).json({ message: `View ${viewId} not deleted` });
 			}
 		}
-		try {
-			// NOTE Remove the app id from the apps array of all users who have access to it.
-			// REVIEW if this does not work, move out ouf try-catch
-			const update = { $pull: { apps: id } };
-			await User.updateMany({ apps: id }, update);
-		} catch (error) {
-			console.error('Error updating Users: ', error);
-			return res
-				.status(404)
-				.json({ message: `Failed to update Users with App ${id}` });
-		}
+
 		try {
 			await app.delete();
 			console.log(`App ${id} deleted successfully`);
+
 			return res.status(204).send();
 		} catch (error) {
 			console.error('Error while deleting an App: ', error);
-			return res.status(500).json({ message: `Failed to delete App ${id}` });
+
+			return res.status(500).json({ message: `App ${id} not deleted` });
 		}
 	} catch (error) {
 		console.error('Error while finding an App: ', error);
+
 		return res.status(404).json({ message: `App ${id} not found` });
 	}
 });
