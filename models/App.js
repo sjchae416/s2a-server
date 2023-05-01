@@ -22,6 +22,10 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	sheetIndex: {
+		type: String,
+		required: true,
+	},
 	// a Boolean indicating whether the app is visible to its end users
 	published: {
 		type: Boolean,
