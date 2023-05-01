@@ -5,19 +5,16 @@ const appSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	// the user who created the app
 	creator: {
 		type: String,
 		required: true,
 	},
-	// a set of views
 	views: [
 		{
 			type: Schema.Types.ObjectId,
 			ref: 'View',
 		},
 	],
-	// URL of a spreadsheet containing role membership information
 	roleMembershipSheet: {
 		type: String,
 		required: true,

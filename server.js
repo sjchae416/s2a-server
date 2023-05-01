@@ -9,8 +9,7 @@ const cors = require('cors');
 // REVIEW from sj's cse316
 const session = require('express-session');
 const passport = require('passport');
-// const passportStrategy = require('./passport');
-require('./passport2');
+require('./passport');
 
 // ROUTE routers
 const indexRouter = require('./routes/index');
@@ -19,9 +18,7 @@ const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
 const tableRouter = require('./routes/tables');
 const googleapisRouter = require('./routes/googleapis');
-// const authRouter = require('./routes/authBackup');
-const authRouter = require('./routes/auth2');
-// const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 
 app.use(express.json());
 
@@ -72,12 +69,6 @@ db.on('error', (err) => console.error('connection error:', err));
 
 // NOTE router endpoint modules
 app.use('/', indexRouter);
-app.get(
-	'http://localhost:3000/server/port',
-	(req, res) => {
-		res.json({ port: process.env.PORT });
-	}
-);
 app.use('/users', userRouter);
 app.use('/apps', appRouter);
 app.use('/tables', tableRouter);

@@ -18,9 +18,9 @@ router.get(
 	'/google',
 	passport.authenticate('google', {
 		scope: [
-			'email',
 			'profile',
-			'https://www.googleapis.com/auth/spreadsheets.readonly',
+			'email',
+			'https://www.googleapis.com/auth/spreadsheets',
 		],
 	})
 );
@@ -28,28 +28,21 @@ router.get(
 router.get(
 	'/google/callback',
 	passport.authenticate('google', {
-		successRedirect: 'http://localhost:3000/',
-		failureRedirect: '/login/failed',
-	})
+		failureRedirect: 'http://localhost:3000/login',
+	}),
+	(req, res) => {
+		res.redirect('http://localhost:3000/');
+	}
 );
 
-router.get('/login/success', (req, res) => {
+router.get('/authenticated', (req, res) => {
 	if (req.user) {
-		res.status(200).json({
-			error: false,
-			message: 'Successfully Loged In',
-			user: req.user,
-		});
+		console.log("user exists");
+		res.json(req.user);
 	} else {
-		res.status(403).json({ error: true, message: 'Not Authorized' });
+		console.log("user doesn't exist");
+		res.json(null);
 	}
-});
-
-router.get('/login/failed', (req, res) => {
-	res.status(401).json({
-		error: true,
-		message: 'Log in and authentication failed',
-	});
 });
 
 router.get('/logout', (req, res) => {
