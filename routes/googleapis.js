@@ -139,7 +139,7 @@ router.post("/updatesheet", ensureAuthenticated, async (req, res) => {
     res.send(response);
   } catch (error) {
     if (error.code === 403) {
-      res.status(403);
+      res.status(403).send(error);
     } else {
       res.status(500).send(error);
     }
