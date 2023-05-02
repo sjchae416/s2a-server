@@ -12,6 +12,7 @@ const viewSchema = new Schema({
 	},
 	columns: {
 		type: [String],
+		required: true,
 	},
 	viewType: {
 		type: String,
@@ -32,7 +33,7 @@ const viewSchema = new Schema({
 		type: String,
 	},
 	editFilter: {
-		type: [String],
+		type: String,
 	},
 	editableCols: {
 		type: [String],
