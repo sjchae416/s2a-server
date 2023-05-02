@@ -121,42 +121,7 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		//   const currentApp = await App.findById(id)
-
-		//   // Check if roles have been updated
-		//   if (update.roles) {
-		//     const oldRoles = currentApp.roles;
-		//     const newRoles = update.roles;
-
-		//     // Get added and removed emails
-		//     const { addedEmails, removedEmails } = compareRoles(oldRoles, newRoles);
-
-		//     // Process added emails
-		//     for (const email of addedEmails) {
-		//       if (validateEmail(email)) {
-		//         if (await User.exists({ email: email })) {
-		//           const updatedUser = await User.findOne({ email: email });
-		//           updatedUser.apps.push(id);
-		//           await updatedUser.save();
-		//         } else {
-		//           await User.create({ email: email, apps: [id] });
-		//         }
-		//       }
-		//     }
-
-		//     // Process removed emails
-		//     for (const email of removedEmails) {
-		//       if (validateEmail(email)) {
-		//         const updatedUser = await User.findOne({ email: email });
-		//         if (updatedUser) {
-		//           updatedUser.apps.pull(id);
-		//           await updatedUser.save();
-		//         }
-		//       }
-		//     }
-		//   }
-
-		const updatedApp = await App.findByIdAndUpdate(id, update);
+		const updatedApp = await App.findByIdAndUpdate(id, update, { new: true });
 		console.log(`App ${id} updated successfully`);
 
 		res.status(200).json(updatedApp);

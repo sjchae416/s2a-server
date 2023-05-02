@@ -77,15 +77,10 @@ router.put('/:id', async (req, res) => {
 	const update = req.body;
 
 	try {
-		// const updatedView = await View.findByIdAndUpdate(id, update, { new: true });
-		// console.log('View updated successfully:', updatedView);
+		const updatedView = await View.findByIdAndUpdate(id, update, { new: true });
+		console.log('View updated successfully:', updatedView);
 
-		// res.status(200).json(updatedView);
-
-		await View.findByIdAndUpdate(id, update);
-		console.log(`View ${id} updated successfully`);
-
-		res.status(204).send();
+		res.status(200).json(updatedView);
 	} catch (error) {
 		console.error('Error while updating view: ', error);
 
