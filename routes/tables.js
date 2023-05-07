@@ -60,11 +60,6 @@ router.put("/:id", async (req, res) => {
   const update = req.body;
 
   try {
-    // const updatedTable = await Table.findByIdAndUpdate(id, update, { new: true });
-    // console.log('Table updated successfully:', updatedTable);
-
-    // res.status(200).json(updatedTable);
-
     await Table.findByIdAndUpdate(id, update);
     console.log(`Table ${id} updated successfully`);
 
@@ -81,11 +76,6 @@ router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
   try {
-    // const deletedTable = await Table.findByIdAndDelete(id);
-    // console.log('Table deleted successfully', deletedTable);
-
-    // res.status(200).json(deletedTable);
-
     await View.deleteMany({ table: id });
     console.log(`All Views with Table ${id} deleted successfully`);
 

@@ -17,11 +17,8 @@ const tableSchema = new Schema({
 		{
 			name: {
 				type: String,
-				// REVIEW necessary?
-				// unique: true,
 			},
 			initialValue: {
-				// REVIEW type unsure
 				type: String,
 			},
 			key: {

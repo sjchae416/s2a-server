@@ -4,24 +4,6 @@ const App = require('../models/App');
 const User = require('../models/User');
 const View = require('../models/View');
 
-// function compareRoles(oldRoles, newRoles) {
-//   const oldEmails = getEmailsFromRoles(oldRoles);
-//   const newEmails = getEmailsFromRoles(newRoles);
-
-//   const addedEmails = newEmails.filter(email => !oldEmails.includes(email));
-//   const removedEmails = oldEmails.filter(email => !newEmails.includes(email));
-
-//   return { addedEmails, removedEmails };
-// }
-
-// function getEmailsFromRoles(roles) {
-//   const emails = [];
-//   for (const key in roles) {
-//     emails.push(...roles[key]);
-//   }
-//   return emails;
-// }
-
 // ROUTE Crud - create an App
 router.post('/', async (req, res) => {
 	const {
@@ -54,8 +36,6 @@ router.post('/', async (req, res) => {
 			for (let i = 0; i < newApp.roles[key].length; i++) {
 				let email = newApp.roles[key][i];
 
-				// REVIEW no use of validation anymore and reasons discussed and action agreed
-				// if (validateEmail(email)) {
 				// NOTE If the user exists, update the user's apps array with the new app's id.
 				if (await User.exists({ email: email })) {
 					const updatedUser = await User.findOne({ email: email });
@@ -72,7 +52,6 @@ router.post('/', async (req, res) => {
 					});
 					console.log('New user created successfully: ', newUser);
 				}
-				// }
 			}
 		}
 		console.log('New app created successfully: ', newApp);

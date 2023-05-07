@@ -3,7 +3,6 @@ const sinon = require('sinon');
 const supertest = require('supertest');
 const app = require('../server');
 const UserModel = require('../models/User');
-const validateEmail = require('../utils/validateEmail');
 
 const { expect } = chai;
 const request = supertest(app);

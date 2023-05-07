@@ -3,16 +3,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-// REVIEW from sj's cse316
-// NOTE npm install connect-mongo
-// const MongoStore = require('connect-mongo');
-// REVIEW from sj's cse316
 const session = require('express-session');
 const passport = require('passport');
 require('./passport');
 
 // ROUTE routers
-const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const appRouter = require('./routes/apps');
 const viewRouter = require('./routes/views');
@@ -21,14 +16,6 @@ const googleapisRouter = require('./routes/googleapis');
 const authRouter = require('./routes/auth');
 
 app.use(express.json());
-
-// REVIEW from sj's cse316
-// const store = MongoStore.create({                   // NOTE creates a new session store that uses MongoDB to store the session data.
-// 	mongoUrl: mongoDB,                                // NOTE specifies the connection URL
-// 	secret: process.env.SESSION_SECRET,               // NOTE specifies the secret key
-// 	touchAfter: 24 * 60 * 60,                         // NOTE specifies time (in s) after which a session should be updated (even not modified)
-// });
-// REVIEW from sj's cse316
 
 // User session
 app.use(
@@ -68,7 +55,6 @@ db.once('open', () => console.log('Connected to MongoDB'));
 db.on('error', (err) => console.error('connection error:', err));
 
 // NOTE router endpoint modules
-app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/apps', appRouter);
 app.use('/tables', tableRouter);

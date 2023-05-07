@@ -4,7 +4,6 @@ const supertest = require('supertest');
 const app = require('../server');
 const AppModel = require('../models/App');
 const UserModel = require('../models/User');
-const validateEmail = require('../utils/validateEmail');
 
 const { expect } = chai;
 const request = supertest(app);

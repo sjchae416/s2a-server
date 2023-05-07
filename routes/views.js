@@ -93,11 +93,6 @@ router.delete('/:id', async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		// const deletedView = await View.findByIdAndDelete(id);
-		// console.log('View deleted successfully', deletedView);
-
-		// res.status(200).json(deletedView);
-
 		await View.findByIdAndDelete(id);
 		console.log(`View ${id} deleted successfully`);
 
